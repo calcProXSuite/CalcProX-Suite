@@ -3,134 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scientific Calculator</title>
+  <title>Casio fx-991MS Style Calculator</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #ecf0f1;
+      font-family: 'Courier New', monospace;
+      background-color: #2e2e2e;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
-    .calc-container {
-      background-color: #2c3e50;
-      border-radius: 15px;
+    .calculator {
+      background-color: #1c1c1c;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000;
       padding: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-      width: 350px;
+      width: 320px;
     }
 
     .display {
-      background-color: #fff;
-      padding: 15px;
-      font-size: 20px;
-      border-radius: 10px;
+      background-color: #dfe6e9;
+      color: #2d3436;
+      font-size: 24px;
+      padding: 10px;
+      border-radius: 6px;
       margin-bottom: 15px;
       text-align: right;
+      height: 40px;
       overflow-x: auto;
     }
 
     .buttons {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 10px;
     }
 
     button {
       padding: 15px;
-      font-size: 16px;
+      font-size: 14px;
+      border-radius: 6px;
       border: none;
-      border-radius: 8px;
-      background-color: #34495e;
-      color: #fff;
       cursor: pointer;
-      transition: background 0.2s;
+      background-color: #636e72;
+      color: white;
+      transition: 0.2s;
     }
 
     button:hover {
-      background-color: #3c5d74;
+      background-color: #b2bec3;
+      color: #000;
     }
 
-    .equal {
+    .wide {
       grid-column: span 2;
-      background-color: #27ae60;
     }
 
-    .equal:hover {
-      background-color: #2ecc71;
+    .highlight {
+      background-color: #d63031;
     }
   </style>
 </head>
 <body>
-  <div class="calc-container">
-    <div id="display" class="display">0</div>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
     <div class="buttons">
-      <button onclick="append('sin(')">sin</button>
-      <button onclick="append('cos(')">cos</button>
-      <button onclick="append('tan(')">tan</button>
-      <button onclick="append('log(')">log</button>
-      <button onclick="append('√(')">√</button>
+      <button>SHIFT</button>
+      <button>MODE</button>
+      <button>DEL</button>
+      <button class="highlight">AC</button>
+      <button>Ans</button>
+      <button>/</button>
 
-      <button onclick="append('7')">7</button>
-      <button onclick="append('8')">8</button>
-      <button onclick="append('9')">9</button>
-      <button onclick="append('/')">÷</button>
-      <button onclick="append('^')">^</button>
+      <button>sin</button>
+      <button>cos</button>
+      <button>tan</button>
+      <button>(</button>
+      <button>)</button>
+      <button>*</button>
 
-      <button onclick="append('4')">4</button>
-      <button onclick="append('5')">5</button>
-      <button onclick="append('6')">6</button>
-      <button onclick="append('*')">×</button>
-      <button onclick="append('(')">(</button>
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>log</button>
+      <button>ln</button>
+      <button>-</button>
 
-      <button onclick="append('1')">1</button>
-      <button onclick="append('2')">2</button>
-      <button onclick="append('3')">3</button>
-      <button onclick="append('-')">−</button>
-      <button onclick="append(')')">)</button>
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>x²</button>
+      <button>√</button>
+      <button>+</button>
 
-      <button onclick="append('0')">0</button>
-      <button onclick="append('.')">.</button>
-      <button onclick="clearDisplay()">C</button>
-      <button onclick="append('+')">+</button>
-      <button class="equal" onclick="calculate()">=</button>
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>EXP</button>
+      <button>x!</button>
+      <button>=</button>
+
+      <button class="wide">0</button>
+      <button>.</button>
+      <button>π</button>
     </div>
   </div>
-
-  <script>
-    const display = document.getElementById('display');
-
-    function append(value) {
-      if (display.innerText === '0') display.innerText = '';
-      display.innerText += value;
-    }
-
-    function clearDisplay() {
-      display.innerText = '0';
-    }
-
-    function calculate() {
-      let expression = display.innerText
-        .replace(/√/g, 'Math.sqrt')
-        .replace(/sin/g, 'Math.sin')
-        .replace(/cos/g, 'Math.cos')
-        .replace(/tan/g, 'Math.tan')
-        .replace(/log/g, 'Math.log10')
-        .replace(/\^/g, '**');
-
-      try {
-        let result = eval(expression);
-        display.innerText = result;
-      } catch (e) {
-        display.innerText = 'Error';
-      }
-    }
-
-    Math.log10 = function(x) {
-      return Math.log(x) / Math.LN10;
-    };
-  </script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 - GST, EMI, SIP, BMI, PCD, and more!
 
 ## Live Demo:
-[Click Here to Open](https://gbt40.github.io/CalcProX-Suite/)
+[Click Here to Open](https://calcproxsuite.github.io/CalcProX-Suite/)
 
 ---
 

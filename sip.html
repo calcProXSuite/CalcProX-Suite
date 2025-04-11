@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator - CalcProX Suite</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head><body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>CalcProX Suite</h2>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gst-calculator.html">GST Calculator</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li class="active"><a href="sip-calculator.html">SIP Calculator</a></li>
+          <!-- Other calculator links -->
+        </ul>
+      </nav>
+      <div class="tagline"><strong style="color:#ff5733; font-size:1.1em;">Goli nahi marenge usko, keh ke lenge uski</strong></div>
+    </aside><main class="content">
+  <section class="calculator">
+    <h1>SIP Calculator</h1>
+    <form id="sip-form">
+      <label>Monthly Investment (₹)</label>
+      <input type="number" id="monthly-investment" required>
+      <label>Expected Annual Return (%)</label>
+      <input type="number" id="annual-return" required>
+      <label>Time Period (Years)</label>
+      <input type="number" id="years" required>
+      <button type="submit">Calculate</button>
+      <button type="button" onclick="window.print()">Print</button>
+      <button type="button" onclick="shareSIPResult()">Share</button>
+    </form>
+
+    <div id="result">
+      <canvas id="sipChart" width="300" height="300"></canvas>
+      <p><strong>Total Investment:</strong> ₹<span id="total-investment"></span></p>
+      <p><strong>Wealth Gained:</strong> ₹<span id="wealth-gained"></span></p>
+      <p><strong>Maturity Value:</strong> ₹<span id="maturity-value"></span></p>
+    </div>
+  </section>
+
+  <section class="info">
+    <h2>What is SIP?</h2>
+    <p>A SIP (Systematic Investment Plan) is a disciplined method of investing a fixed amount regularly in mutual funds. With SIP, investors benefit from rupee cost averaging and the power of compounding.</p>
+
+    <h2>How does a SIP Calculator help?</h2>
+    <ul>
+      <li>Estimates maturity amount based on input values</li>
+      <li>Helps visualize wealth gained vs investment</li>
+      <li>Assists in planning long-term financial goals</li>
+    </ul>
+
+    <h2>Formula Used</h2>
+    <p>The SIP maturity formula is:<br><strong>M = P × [(1 + r)^n – 1] × (1 + r)/r</strong><br>Where:<br>
+    M = Maturity Amount<br>P = SIP Amount<br>r = Monthly Interest Rate<br>n = Number of Months</p>
+
+    <h2>Example</h2>
+    <p>If you invest ₹5,000 per month for 10 years with 12% annual return, maturity = ₹11,61,695</p>
+
+    <h2>Benefits of SIP</h2>
+    <ul>
+      <li>Disciplined savings</li>
+      <li>Rupee cost averaging</li>
+      <li>Power of compounding</li>
+      <li>Flexible investment options</li>
+    </ul>
+
+    <h2>FAQs</h2>
+    <details>
+      <summary>Can SIPs give guaranteed returns?</summary>
+      <p>No. Returns depend on market performance. SIP is a tool to manage volatility.</p>
+    </details>
+    <details>
+      <summary>Is SIP only for long-term?</summary>
+      <p>Best suited for long-term wealth creation, but short-term SIPs are also possible.</p>
+    </details>
+    <details>
+      <summary>Can I stop SIP anytime?</summary>
+      <p>Yes. SIPs can be started, paused, or stopped anytime without penalty.</p>
+    </details>
+  </section>
+</main>
+
+  </div>  <script>
+    document.getElementById('sip-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const monthly = parseFloat(document.getElementById('monthly-investment').value);
+      const rate = parseFloat(document.getElementById('annual-return').value) / 12 / 100;
+      const years = parseInt(document.getElementById('years').value);
+      const n = years * 12;
+      const maturity = monthly * ((Math.pow(1 + rate, n) - 1) * (1 + rate) / rate);
+      const invested = monthly * n;
+      const gain = maturity - invested;
+      document.getElementById('total-investment').textContent = invested.toFixed(2);
+      document.getElementById('wealth-gained').textContent = gain.toFixed(2);
+      document.getElementById('maturity-value').textContent = maturity.toFixed(2);
+      new Chart(document.getElementById('sipChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Invested', 'Gain'],
+          datasets: [{
+            data: [invested, gain],
+            backgroundColor: ['#4caf50', '#2196f3']
+          }]
+        }
+      });
+    });
+
+    function shareSIPResult() {
+      const text = `Check out my SIP results on CalcProX Suite! Total Investment: ₹${document.getElementById('total-investment').textContent}, Wealth Gained: ₹${document.getElementById('wealth-gained').textContent}, Maturity Value: ₹${document.getElementById('maturity-value').textContent}`;
+      if (navigator.share) {
+        navigator.share({
+          title: 'SIP Calculation Result',
+          text: text,
+          url: window.location.href
+        });
+      } else {
+        alert("Share feature not supported in this browser.");
+      }
+    }
+  </script></body></html>

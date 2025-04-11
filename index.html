@@ -2,12 +2,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalcProX Suite</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CalcProX Suite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    nav button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background-color: #0056b3;
+    }
+    .calc-section {
+      display: none;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .calc-section.active {
+      display: block;
+    }
+    .calculator input {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .calculator button {
+      width: 23%;
+      margin: 1%;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ddd;
+      cursor: pointer;
+    }
+    .calculator button:hover {
+      background-color: #ccc;
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to CalcProX Suite</h1>
-    <p>All-in-One Calculator Platform by CalcProX</p>
+
+  <h1>CalcProX Suite</h1>
+
+  <nav>
+    <button onclick="showCalc('basic')">Basic Calculator</button>
+    <!-- Yahan baad me aur calculators ke buttons add karenge -->
+  </nav>
+
+  <div id="basic" class="calc-section active">
+    <h2>Basic Calculator</h2>
+    <div class="calculator">
+      <input type="text" id="basic-display" readonly>
+      <div>
+        <button onclick="basicInput('7')">7</button>
+        <button onclick="basicInput('8')">8</button>
+        <button onclick="basicInput('9')">9</button>
+        <button onclick="basicInput('/')">/</button>
+      </div>
+      <div>
+        <button onclick="basicInput('4')">4</button>
+        <button onclick="basicInput('5')">5</button>
+        <button onclick="basicInput('6')">6</button>
+        <button onclick="basicInput('*')">*</button>
+      </div>
+      <div>
+        <button onclick="basicInput('1')">1</button>
+        <button onclick="basicInput('2')">2</button>
+        <button onclick="basicInput('3')">3</button>
+        <button onclick="basicInput('-')">-</button>
+      </div>
+      <div>
+        <button onclick="basicInput('0')">0</button>
+        <button onclick="basicInput('.')">.</button>
+        <button onclick="calculateBasic()">=</button>
+        <button onclick="basicInput('+')">+</button>
+      </div>
+      <div>
+        <button onclick="clearBasic()" style="width: 98%">C</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showCalc(id) {
+      document.querySelectorAll('.calc-section').forEach(div => div.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function basicInput(value) {
+      document.getElementById("basic-display").value += value;
+    }
+
+    function clearBasic() {
+      document.getElementById("basic-display").value = "";
+    }
+
+    function calculateBasic() {
+      try {
+        let result = eval(document.getElementById("basic-display").value);
+        document.getElementById("basic-display").value = result;
+      } catch {
+        document.getElementById("basic-display").value = "Error";
+      }
+    }
+  </script>
+
 </body>
 </html>

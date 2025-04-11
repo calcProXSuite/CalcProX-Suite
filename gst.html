@@ -1,130 +1,133 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GST Calculator - CalcProX Suite</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f9f9f9;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
     .container {
-      max-width: 600px;
-      background: #fff;
-      margin: auto;
-      padding: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
     }
-    h1 {
+    h2 {
       text-align: center;
       color: #333;
     }
-    input[type="number"] {
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+    input, select, button {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
-    }
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      font-size: 16px;
     }
     .result {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #e2ffe2;
-      border: 1px solid #ccc;
+      background-color: #e6f7ff;
+      padding: 15px;
       border-radius: 5px;
+      margin-top: 20px;
     }
     .btn-group {
       display: flex;
-      gap: 10px;
-      margin-top: 10px;
+      justify-content: space-between;
     }
     .btn-group button {
-      flex: 1;
-      background-color: #28a745;
+      width: 32%;
+      cursor: pointer;
     }
     .info {
       margin-top: 30px;
-      background-color: #f9f9f9;
-      padding: 15px;
-      border-left: 5px solid #007bff;
-      font-size: 15px;
+      font-size: 0.95rem;
       line-height: 1.6;
-    }
-    .ad-banner {
-      margin-top: 20px;
-      height: 90px;
-      background-color: #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #555;
-      border-radius: 5px;
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>GST Calculator</h1>
-    <input type="number" id="amount" placeholder="Enter amount">
-    <select id="gstRate">
-      <option value="5">5%</option>
-      <option value="12">12%</option>
-      <option value="18">18%</option>
-      <option value="28">28%</option>
-    </select>
-    <button onclick="calculateGST()">Calculate GST</button>
-    <div class="result" id="result"></div>
-    <div class="btn-group">
-      <button onclick="window.print()">Print Result</button>
-      <button onclick="shareResult()">Share</button>
-    </div>
-    <div class="info">
-      <strong>What is GST?</strong><br>
-      GST (Goods and Services Tax) ek indirect tax hai jo India me 1 July 2017 se lagu hua. Iska maksad tha saare indirect taxes jaise VAT, service tax, excise ko hata ke ek single tax system banana. Ye har goods aur service pe lagta hai jise consumer kharidta hai.
-    </div>
-    <div class="ad-banner">
-      Ad Banner Placeholder
-    </div>
+  <div class="container" id="gstCalc">
+    <h2>GST Calculator</h2>
+    <label for="amount">Enter Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount in ₹" /><label for="gstRate">Select GST Rate:</label>
+<select id="gstRate">
+  <option value="5">5%</option>
+  <option value="12">12%</option>
+  <option value="18">18%</option>
+  <option value="28">28%</option>
+</select>
+
+<label for="type">GST Type:</label>
+<select id="type">
+  <option value="add">Add GST</option>
+  <option value="remove">Remove GST</option>
+</select>
+
+<button onclick="calculateGST()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+<div class="btn-group">
+  <button onclick="window.print()">Print</button>
+  <button onclick="shareResult()">Share</button>
+  <button onclick="window.print()">Print Preview</button>
+</div>
+
+<div class="info">
+  <strong>About GST:</strong><br />
+  GST (Goods and Services Tax) ek indirect tax hai jo India me 1 July 2017 se lagu hua. Iska main aim tha alag-alag taxes ko hata kar ek single tax system lana. GST ke andar Central GST (CGST), State GST (SGST), aur Integrated GST (IGST) aate hain.<br /><br />
+  Jab aap kisi item ya service ko kharidte hain to GST include hota hai. Agar aap 'Add GST' choose karte hain to total amount me GST jod diya jata hai. 'Remove GST' ka matlab hai ki kisi given total price se GST ka hissa alag kiya jaye.<br /><br />
+  Is calculator ki madad se aap asaani se kisi bhi amount par GST add ya minus kar sakte hain.
+</div>
+
   </div>  <script>
     function calculateGST() {
-      const amount = parseFloat(document.getElementById('amount').value);
-      const rate = parseFloat(document.getElementById('gstRate').value);
-      if (isNaN(amount)) {
-        document.getElementById('result').innerHTML = "Please enter a valid amount.";
+      const amount = parseFloat(document.getElementById("amount").value);
+      const gstRate = parseFloat(document.getElementById("gstRate").value);
+      const type = document.getElementById("type").value;
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount");
         return;
       }
-      const gstAmount = (amount * rate) / 100;
-      const total = amount + gstAmount;
-      document.getElementById('result').innerHTML =
-        `GST (${rate}%): ₹${gstAmount.toFixed(2)}<br>Total Amount: ₹${total.toFixed(2)}`;
+
+      let gstAmount, finalAmount;
+      if (type === "add") {
+        gstAmount = (amount * gstRate) / 100;
+        finalAmount = amount + gstAmount;
+      } else {
+        finalAmount = amount / (1 + gstRate / 100);
+        gstAmount = amount - finalAmount;
+      }
+
+      document.getElementById("result").innerHTML = `
+        <strong>GST Amount:</strong> ₹${gstAmount.toFixed(2)}<br />
+        <strong>Total Amount:</strong> ₹${finalAmount.toFixed(2)}
+      `;
     }
 
     function shareResult() {
-      const text = document.getElementById('result').innerText;
-      const shareData = {
-        title: 'GST Calculation Result',
-        text: text,
-        url: window.location.href
-      };
+      const text = document.getElementById("result").innerText;
       if (navigator.share) {
-        navigator.share(shareData).catch(err => alert("Sharing failed: " + err));
+        navigator.share({
+          title: 'GST Calculation Result',
+          text: text,
+          url: window.location.href
+        }).catch(console.error);
       } else {
-        navigator.clipboard.writeText(text + "\n" + window.location.href);
-        alert("Result copied to clipboard.");
+        alert("Sharing not supported on this browser. Please copy manually.");
       }
     }
   </script></body>

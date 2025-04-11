@@ -1,116 +1,107 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>fx-991MS Style Scientific Calculator</title>
+  <title>CalcProX Scientific Calculator</title>
   <style>
-    * {
-      box-sizing: border-box;
+    body {
       margin: 0;
-      padding: 0;
-    }body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: #1a1a1a;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.calculator {
-  background: #2f2f2f;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-  width: 360px;
-}
-
-.display {
-  background: #000;
-  color: #0f0;
-  font-size: 2rem;
-  text-align: right;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  height: 60px;
-  overflow-x: auto;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-}
-
-.btn {
-  padding: 15px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 8px;
-  background: #3d3d3d;
-  color: white;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn:hover {
-  background: #555;
-}
-
-.btn.orange {
-  background: #f44336;
-}
-
-.btn.orange:hover {
-  background: #d32f2f;
-}
-
+      font-family: Arial, sans-serif;
+      background-color: #222;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      background: #2d2d2d;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      max-width: 360px;
+      width: 100%;
+    }
+    .display {
+      background: #111;
+      color: #0f0;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      height: 40px;
+      overflow-x: auto;
+    }
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    button {
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+    }
+    button:active {
+      background-color: #666;
+    }
+    .orange { background-color: orange; }
+    .red { background-color: crimson; }
+    .wide { grid-column: span 2; }
   </style>
-</head><body>
+</head>
+<body>
   <div class="calculator">
     <div id="display" class="display">0</div>
-    <div class="buttons">
-      <button class="btn">SHIFT</button>
-      <button class="btn">MODE</button>
-      <button class="btn" onclick="delChar()">DEL</button>
-      <button class="btn orange" onclick="clearDisplay()">AC</button>
-      <button class="btn" onclick="append('Ans')">Ans</button>
-      <button class="btn" onclick="append('/')">/</button>
-      <button class="btn" onclick="append('sin(')">sin</button>
-      <button class="btn" onclick="append('cos(')">cos</button>
-      <button class="btn" onclick="append('tan(')">tan</button>
-      <button class="btn" onclick="append('(')">(</button>
-      <button class="btn" onclick="append(')')">)</button>
-      <button class="btn" onclick="append('*')">×</button>
-      <button class="btn" onclick="append('7')">7</button>
-      <button class="btn" onclick="append('8')">8</button>
-      <button class="btn" onclick="append('9')">9</button>
-      <button class="btn" onclick="append('log(')">log</button>
-      <button class="btn" onclick="append('ln(')">ln</button>
-      <button class="btn" onclick="append('-')">−</button>
-      <button class="btn" onclick="append('4')">4</button>
-      <button class="btn" onclick="append('5')">5</button>
-      <button class="btn" onclick="append('6')">6</button>
-      <button class="btn" onclick="append('√(')">√</button>
-      <button class="btn" onclick="append('^')">^</button>
-      <button class="btn" onclick="append('+')">+</button>
-      <button class="btn" onclick="append('1')">1</button>
-      <button class="btn" onclick="append('2')">2</button>
-      <button class="btn" onclick="append('3')">3</button>
-      <button class="btn" onclick="append('EXP')">EXP</button>
-      <button class="btn" onclick="append('x!')">x!</button>
-      <button class="btn" onclick="calculate()">=</button>
-      <button class="btn" onclick="append('0')">0</button>
-      <button class="btn" onclick="append('.')">.</button>
-    </div>
+    <div class="keys">
+      <button onclick="clearDisplay()" class="red">AC</button>
+      <button onclick="delChar()">DEL</button>
+      <button onclick="append('Ans')">Ans</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
+      <button onclick="append('/')">/</button><button onclick="append('sin(')">sin</button>
+  <button onclick="append('cos(')">cos</button>
+  <button onclick="append('tan(')">tan</button>
+  <button onclick="append('log(')">log</button>
+  <button onclick="append('ln(')">ln</button>
+  <button onclick="append('*')">*</button>
+
+  <button onclick="append('7')">7</button>
+  <button onclick="append('8')">8</button>
+  <button onclick="append('9')">9</button>
+  <button onclick="append('sqrt(')">√</button>
+  <button onclick="append('EXP')">EXP</button>
+  <button onclick="append('-')">-</button>
+
+  <button onclick="append('4')">4</button>
+  <button onclick="append('5')">5</button>
+  <button onclick="append('6')">6</button>
+  <button onclick="append('!')">x!</button>
+  <button onclick="append('Math.PI')">π</button>
+  <button onclick="append('+')">+</button>
+
+  <button onclick="append('1')">1</button>
+  <button onclick="append('2')">2</button>
+  <button onclick="append('3')">3</button>
+  <button onclick="calculate()" class="orange wide">=</button>
+
+  <button onclick="append('0')">0</button>
+  <button onclick="append('.')">.</button>
+</div>
+
   </div>  <script>
     const display = document.getElementById('display');
 
-    function append(val) {
-      if (display.innerText === '0') {
-        display.innerText = val;
+    function append(value) {
+      if (display.innerText === '0' || display.innerText === 'Error') {
+        display.innerText = value;
       } else {
-        display.innerText += val;
+        display.innerText += value;
       }
     }
 
@@ -119,26 +110,33 @@
     }
 
     function delChar() {
-      if (display.innerText.length <= 1) {
-        display.innerText = '0';
-      } else {
-        display.innerText = display.innerText.slice(0, -1);
-      }
+      let text = display.innerText;
+      display.innerText = text.length > 1 ? text.slice(0, -1) : '0';
+    }
+
+    function factorial(n) {
+      if (n < 0) return NaN;
+      if (n === 0 || n === 1) return 1;
+      return n * factorial(n - 1);
     }
 
     function calculate() {
       try {
-        display.innerText = eval(display.innerText.replace('^', '**'));
+        let expr = display.innerText
+          .replace(/Ans/g, '0')
+          .replace(/EXP/g, 'Math.E')
+          .replace(/sqrt/g, 'Math.sqrt')
+          .replace(/sin/g, 'Math.sin')
+          .replace(/cos/g, 'Math.cos')
+          .replace(/tan/g, 'Math.tan')
+          .replace(/log/g, 'Math.log10')
+          .replace(/ln/g, 'Math.log')
+          .replace(/π/g, 'Math.PI')
+          .replace(/([0-9]+)!/g, (_, n) => factorial(parseInt(n)));
+        display.innerText = eval(expr);
       } catch {
         display.innerText = 'Error';
       }
     }
-
-    document.addEventListener('keydown', (e) => {
-      const key = e.key;
-      if (/^[0-9+\-*/().]$/.test(key)) append(key);
-      else if (key === 'Enter') calculate();
-      else if (key === 'Backspace') delChar();
-      else if (key === 'Delete') clearDisplay();
-    });
-  </script></body></html>
+  </script></body>
+</html>

@@ -1,131 +1,81 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CalcProX Suite</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    nav {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
+      min-height: 100vh;
     }
-    nav button {
-      padding: 10px 15px;
-      border: none;
-      background-color: #007bff;
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
       color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    nav button:hover {
-      background-color: #0056b3;
-    }
-    .calc-section {
-      display: none;
-      background-color: white;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .calc-section.active {
+    .sidebar h2 {
+      margin-bottom: 20px;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      margin: 10px 0;
       display: block;
-    }
-    .calculator input {
-      width: 100%;
-      padding: 10px;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-    .calculator button {
-      width: 23%;
-      margin: 1%;
-      padding: 15px;
-      font-size: 18px;
-      border: none;
+      padding: 8px;
       border-radius: 5px;
-      background-color: #ddd;
-      cursor: pointer;
     }
-    .calculator button:hover {
-      background-color: #ccc;
+    .sidebar a:hover {
+      background-color: #34495e;
+    }
+    .tagline {
+      font-size: 14px;
+      margin-top: 40px;
+      text-align: center;
+      font-style: italic;
+      color: #ecf0f1;
+    }
+    .content {
+      flex: 1;
+      padding: 30px;
+      background-color: #ecf0f1;
+    }
+    .welcome {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 100px;
     }
   </style>
 </head>
 <body>
-
-  <h1>CalcProX Suite</h1>
-
-  <nav>
-    <button onclick="showCalc('basic')">Basic Calculator</button>
-    <!-- Yahan baad me aur calculators ke buttons add karenge -->
-  </nav>
-
-  <div id="basic" class="calc-section active">
-    <h2>Basic Calculator</h2>
-    <div class="calculator">
-      <input type="text" id="basic-display" readonly>
-      <div>
-        <button onclick="basicInput('7')">7</button>
-        <button onclick="basicInput('8')">8</button>
-        <button onclick="basicInput('9')">9</button>
-        <button onclick="basicInput('/')">/</button>
-      </div>
-      <div>
-        <button onclick="basicInput('4')">4</button>
-        <button onclick="basicInput('5')">5</button>
-        <button onclick="basicInput('6')">6</button>
-        <button onclick="basicInput('*')">*</button>
-      </div>
-      <div>
-        <button onclick="basicInput('1')">1</button>
-        <button onclick="basicInput('2')">2</button>
-        <button onclick="basicInput('3')">3</button>
-        <button onclick="basicInput('-')">-</button>
-      </div>
-      <div>
-        <button onclick="basicInput('0')">0</button>
-        <button onclick="basicInput('.')">.</button>
-        <button onclick="calculateBasic()">=</button>
-        <button onclick="basicInput('+')">+</button>
-      </div>
-      <div>
-        <button onclick="clearBasic()" style="width: 98%">C</button>
-      </div>
+  <div class="sidebar">
+    <div>
+      <h2>CalcProX Suite</h2>
+      <a href="scientific.html" target="_blank">Scientific Calculator</a>
+      <a href="#">GST Calculator</a>
+      <a href="#">EMI Calculator</a>
+      <a href="#">SIP Calculator</a>
+      <a href="#">Age Calculator</a>
+      <a href="#">BMI Calculator</a>
+      <a href="#">Currency Converter</a>
+      <a href="#">Percentage Calculator</a>
+      <a href="#">Unit Converter</a>
     </div>
+    <div class="tagline">"Goli nahi marenge usko, keh ke lenge uski"</div>
   </div>
 
-  <script>
-    function showCalc(id) {
-      document.querySelectorAll('.calc-section').forEach(div => div.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function basicInput(value) {
-      document.getElementById("basic-display").value += value;
-    }
-
-    function clearBasic() {
-      document.getElementById("basic-display").value = "";
-    }
-
-    function calculateBasic() {
-      try {
-        let result = eval(document.getElementById("basic-display").value);
-        document.getElementById("basic-display").value = result;
-      } catch {
-        document.getElementById("basic-display").value = "Error";
-      }
-    }
-  </script>
-
+  <div class="content">
+    <div class="welcome">Welcome to CalcProX Suite! Choose a calculator from the sidebar.</div>
+  </div>
 </body>
 </html>

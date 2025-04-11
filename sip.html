@@ -5,100 +5,141 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #fdfdfd;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }header {
-        background-color: #ff6f00;
-        color: white;
-        padding: 1rem;
+        }.container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
         text-align: center;
-        border-bottom: 5px solid #e65100;
+        color: #333;
+        border-bottom: 3px solid orange;
+        padding-bottom: 10px;
     }
 
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 1rem;
-        background-color: white;
+    label {
+        display: block;
+        margin-top: 20px;
+        color: #333;
     }
 
-    .chart-section {
-        text-align: center;
-        margin: 2rem 0;
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
     }
 
-    .chart-section img {
-        width: 300px;
-    }
-
-    .button-bar {
-        text-align: right;
-        margin-top: 1rem;
-    }
-
-    .button-bar button {
-        background-color: #ff6f00;
-        color: white;
+    button {
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: orange;
         border: none;
-        padding: 0.5rem 1rem;
-        margin-left: 0.5rem;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
         cursor: pointer;
-        border-radius: 4px;
+    }
+
+    #result {
+        margin-top: 30px;
+        padding: 20px;
+        border: 2px solid orange;
+        border-radius: 8px;
+        background-color: #fff8f0;
+    }
+
+    .graph {
+        margin-top: 30px;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .tagline {
         text-align: center;
-        color: #ff6f00;
+        margin-top: 40px;
+        color: orange;
         font-weight: bold;
-        font-size: 1.2rem;
-        margin-top: 2rem;
+        font-size: 16px;
     }
 
-    h2 {
-        border-left: 4px solid #ff6f00;
-        padding-left: 0.5rem;
-        margin-top: 2rem;
+    .footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 14px;
+        color: gray;
     }
 </style>
 
 </head><body>
-    <header>
-        <h1>SIP Calculator - CalcProX Suite</h1>
-    </header><div class="container">
-    <div class="chart-section">
-        <h2>Investment Summary</h2>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Pie_chart_3d.svg/512px-Pie_chart_3d.svg.png" alt="SIP Graph">
-        <div class="button-bar">
-            <button onclick="window.print()">Print</button>
-            <button onclick="navigator.share({ title: document.title, url: window.location.href })">Share</button>
-        </div>
+    <div class="container">
+        <h1>SIP Calculator</h1>
+        <label for="monthly">Monthly Investment Amount (₹)</label>
+        <input type="number" id="monthly" placeholder="e.g. 5000"><label for="rate">Expected Annual Return Rate (%)</label>
+    <input type="number" id="rate" placeholder="e.g. 12">
+
+    <label for="years">Investment Duration (Years)</label>
+    <input type="number" id="years" placeholder="e.g. 10">
+
+    <button onclick="calculateSIP()">Calculate</button>
+
+    <div class="buttons">
+        <button onclick="window.print()">Print</button>
+        <button onclick="navigator.share ? navigator.share({title: document.title, url: window.location.href}) : alert('Sharing not supported');">Share</button>
+        <button onclick="window.location.reload()">Add Another</button>
     </div>
 
-    <h2>What is a SIP Calculator?</h2>
-    <p>A SIP calculator helps you estimate the returns on your mutual fund investments made through a Systematic Investment Plan (SIP). It allows you to plan your monthly contributions and forecast the growth of your investments over a specific period.</p>
+    <div id="result"></div>
 
-    <h2>How does SIP work?</h2>
-    <p>SIP allows you to invest a fixed amount regularly in a mutual fund scheme. The investments are made at periodic intervals (monthly, quarterly), helping average out the cost and benefit from compounding over time.</p>
+    <div class="graph">
+        <img src="https://chart.googleapis.com/chart?cht=p&chs=400x200&chd=t:70,30&chl=Invested|Returns&chco=FFA500,FFDDC1" alt="SIP Graph">
+    </div>
 
-    <h2>Benefits of SIP Investment</h2>
-    <ul>
-        <li>Disciplined investing</li>
-        <li>Rupee cost averaging</li>
-        <li>Power of compounding</li>
-        <li>Flexible and convenient</li>
-    </ul>
+    <div class="tagline">
+        Goli nahi marenge usko, keh ke lenge uski.
+    </div>
 
-    <h2>Frequently Asked Questions</h2>
-    <p><strong>Q1:</strong> Can SIP make you rich?<br>
-        <strong>A:</strong> SIPs may build wealth over time through disciplined investing and compounding, but results depend on market performance.
-    </p>
-    <p><strong>Q2:</strong> Is SIP better than FD?<br>
-        <strong>A:</strong> SIPs typically offer higher returns but with risk, while FDs are safer but lower-yielding.
-    </p>
-
-    <div class="tagline">Goli nahi marenge usko, keh ke lenge uski - CalcProX Suite</div>
+    <div class="footer">
+        All Rights Reserved – CalcProX Suite
+    </div>
 </div>
+
+<script>
+    function calculateSIP() {
+        const monthly = parseFloat(document.getElementById('monthly').value);
+        const rate = parseFloat(document.getElementById('rate').value) / 100 / 12;
+        const years = parseFloat(document.getElementById('years').value);
+        const months = years * 12;
+
+        if (isNaN(monthly) || isNaN(rate) || isNaN(years)) {
+            alert("Please enter valid input values.");
+            return;
+        }
+
+        const futureValue = monthly * (((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate));
+        const investedAmount = monthly * months;
+        const returns = futureValue - investedAmount;
+
+        document.getElementById('result').innerHTML = `
+            <h3>Investment Summary</h3>
+            <p><strong>Total Invested:</strong> ₹${investedAmount.toFixed(2)}</p>
+            <p><strong>Estimated Returns:</strong> ₹${returns.toFixed(2)}</p>
+            <p><strong>Total Value:</strong> ₹${futureValue.toFixed(2)}</p>
+        `;
+    }
+</script>
 
 </body></html>

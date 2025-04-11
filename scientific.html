@@ -1,149 +1,144 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scientific Calculator - CalcProX Suite</title>
+  <title>fx-991MS Style Scientific Calculator</title>
   <style>
     * {
       box-sizing: border-box;
-    }
-    body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #1e1e2f;
-    }
-    .calculator {
-      background-color: #2a2a40;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-      max-width: 320px;
-      width: 100%;
-    }
-    .display {
-      width: 100%;
-      height: 60px;
-      margin-bottom: 15px;
-      text-align: right;
-      padding: 10px;
-      font-size: 24px;
-      border-radius: 8px;
-      border: none;
-      background-color: #111;
-      color: #0f0;
-    }
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-    }
-    button {
-      padding: 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #444;
-      color: white;
-      transition: background-color 0.2s;
-    }
-    button:hover {
-      background-color: #666;
-    }
-    .btn-func {
-      background-color: #2c7;
-      color: black;
-    }
-    .btn-operator {
-      background-color: #e44;
-    }
+      padding: 0;
+    }body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #1a1a1a;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.calculator {
+  background: #2f2f2f;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  width: 360px;
+}
+
+.display {
+  background: #000;
+  color: #0f0;
+  font-size: 2rem;
+  text-align: right;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 60px;
+  overflow-x: auto;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.btn {
+  padding: 15px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #3d3d3d;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: #555;
+}
+
+.btn.orange {
+  background: #f44336;
+}
+
+.btn.orange:hover {
+  background: #d32f2f;
+}
+
   </style>
-</head>
-<body>
+</head><body>
   <div class="calculator">
-    <input type="text" class="display" id="display" readonly>
+    <div id="display" class="display">0</div>
     <div class="buttons">
-      <button onclick="inputValue('SHIFT')">SHIFT</button>
-      <button onclick="inputValue('MODE')">MODE</button>
-      <button onclick="delChar()">DEL</button>
-      <button onclick="clearDisplay()" class="btn-operator">AC</button>
-      <button onclick="inputValue('Ans')">Ans</button>
-      <button onclick="inputValue('/')">/</button><button onclick="inputValue('sin(')">sin</button>
-  <button onclick="inputValue('cos(')">cos</button>
-  <button onclick="inputValue('tan(')">tan</button>
-  <button onclick="inputValue('(')">(</button>
-  <button onclick="inputValue(')')">)</button>
-  <button onclick="inputValue('*')">*</button>
-
-  <button onclick="inputValue('7')">7</button>
-  <button onclick="inputValue('8')">8</button>
-  <button onclick="inputValue('9')">9</button>
-  <button onclick="inputValue('log(')">log</button>
-  <button onclick="inputValue('ln(')">ln</button>
-  <button onclick="inputValue('-')">-</button>
-
-  <button onclick="inputValue('4')">4</button>
-  <button onclick="inputValue('5')">5</button>
-  <button onclick="inputValue('6')">6</button>
-  <button onclick="inputValue('^')">x^y</button>
-  <button onclick="inputValue('√(')">√</button>
-  <button onclick="inputValue('+')">+</button>
-
-  <button onclick="inputValue('1')">1</button>
-  <button onclick="inputValue('2')">2</button>
-  <button onclick="inputValue('3')">3</button>
-  <button onclick="inputValue('EXP')">EXP</button>
-  <button onclick="inputValue('x!')">x!</button>
-  <button onclick="calculate()" class="btn-func">=</button>
-
-  <button onclick="inputValue('0')" style="grid-column: span 2">0</button>
-  <button onclick="inputValue('.')">.</button>
-</div>
-
+      <button class="btn">SHIFT</button>
+      <button class="btn">MODE</button>
+      <button class="btn" onclick="delChar()">DEL</button>
+      <button class="btn orange" onclick="clearDisplay()">AC</button>
+      <button class="btn" onclick="append('Ans')">Ans</button>
+      <button class="btn" onclick="append('/')">/</button>
+      <button class="btn" onclick="append('sin(')">sin</button>
+      <button class="btn" onclick="append('cos(')">cos</button>
+      <button class="btn" onclick="append('tan(')">tan</button>
+      <button class="btn" onclick="append('(')">(</button>
+      <button class="btn" onclick="append(')')">)</button>
+      <button class="btn" onclick="append('*')">×</button>
+      <button class="btn" onclick="append('7')">7</button>
+      <button class="btn" onclick="append('8')">8</button>
+      <button class="btn" onclick="append('9')">9</button>
+      <button class="btn" onclick="append('log(')">log</button>
+      <button class="btn" onclick="append('ln(')">ln</button>
+      <button class="btn" onclick="append('-')">−</button>
+      <button class="btn" onclick="append('4')">4</button>
+      <button class="btn" onclick="append('5')">5</button>
+      <button class="btn" onclick="append('6')">6</button>
+      <button class="btn" onclick="append('√(')">√</button>
+      <button class="btn" onclick="append('^')">^</button>
+      <button class="btn" onclick="append('+')">+</button>
+      <button class="btn" onclick="append('1')">1</button>
+      <button class="btn" onclick="append('2')">2</button>
+      <button class="btn" onclick="append('3')">3</button>
+      <button class="btn" onclick="append('EXP')">EXP</button>
+      <button class="btn" onclick="append('x!')">x!</button>
+      <button class="btn" onclick="calculate()">=</button>
+      <button class="btn" onclick="append('0')">0</button>
+      <button class="btn" onclick="append('.')">.</button>
+    </div>
   </div>  <script>
     const display = document.getElementById('display');
-    document.addEventListener('keydown', e => {
-      const key = e.key;
-      if (!isNaN(key) || "+-*/().".includes(key)) inputValue(key);
-      else if (key === "Enter") calculate();
-      else if (key === "Backspace") delChar();
-      else if (key === "Escape") clearDisplay();
-    });
 
-    function inputValue(val) {
-      if (val === 'x!') {
-        const n = parseInt(display.value);
-        if (!isNaN(n)) display.value = factorial(n);
-        return;
+    function append(val) {
+      if (display.innerText === '0') {
+        display.innerText = val;
+      } else {
+        display.innerText += val;
       }
-      display.value += val;
-    }
-
-    function delChar() {
-      display.value = display.value.slice(0, -1);
     }
 
     function clearDisplay() {
-      display.value = '';
+      display.innerText = '0';
+    }
+
+    function delChar() {
+      if (display.innerText.length <= 1) {
+        display.innerText = '0';
+      } else {
+        display.innerText = display.innerText.slice(0, -1);
+      }
     }
 
     function calculate() {
       try {
-        display.value = eval(display.value.replace('^', '**'));
+        display.innerText = eval(display.innerText.replace('^', '**'));
       } catch {
-        display.value = 'Error';
+        display.innerText = 'Error';
       }
     }
 
-    function factorial(n) {
-      if (n < 0) return 'Error';
-      let f = 1;
-      for (let i = 2; i <= n; i++) f *= i;
-      return f;
-    }
-  </script></body>
-</html>
+    document.addEventListener('keydown', (e) => {
+      const key = e.key;
+      if (/^[0-9+\-*/().]$/.test(key)) append(key);
+      else if (key === 'Enter') calculate();
+      else if (key === 'Backspace') delChar();
+      else if (key === 'Delete') clearDisplay();
+    });
+  </script></body></html>

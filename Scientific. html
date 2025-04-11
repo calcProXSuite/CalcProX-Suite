@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scientific Calculator - CalcProX Suite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+    .display {
+      width: 100%;
+      height: 50px;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      text-align: right;
+      background: #f9f9f9;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 15px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      background: #e0e0e0;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #d4d4d4;
+    }
+    .equal {
+      background: #4CAF50;
+      color: white;
+    }
+    .equal:hover {
+      background: #45a049;
+    }
+    .fun {
+      background: #b0e0e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" class="display" readonly>
+    <div class="buttons">
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('/')">/</button>
+      <button onclick="clearDisplay()">C</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('*')">*</button>
+      <button onclick="append('(')">(</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('-')">-</button>
+      <button onclick="append(')')">)</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="append('+')">+</button>
+      <button onclick="backspace()">⌫</button>
+
+      <button class="fun" onclick="append('Math.sin(')">sin</button>
+      <button class="fun" onclick="append('Math.cos(')">cos</button>
+      <button class="fun" onclick="append('Math.tan(')">tan</button>
+      <button class="fun" onclick="append('Math.log10(')">log</button>
+      <button class="fun" onclick="append('Math.sqrt(')">√</button>
+
+      <button class="fun" onclick="append('Math.pow(')">xʸ</button>
+      <button class="fun" onclick="append('Math.PI')">π</button>
+      <button class="fun" onclick="append('Math.E')">e</button>
+      <button class="fun" onclick="append('Math.exp(')">exp</button>
+      <button class="fun" onclick="append('%')">%</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function append(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function backspace() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        const result = eval(display.value);
+        display.value = result;
+      } catch {
+        display.value = 'Error';
+      }
+    }
+
+    // Enable keyboard input
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      if ((/[0-9+\-*/().%]/.test(key)) || key === 'Enter' || key === 'Backspace') {
+        event.preventDefault();
+        if (key === 'Enter') calculate();
+        else if (key === 'Backspace') backspace();
+        else append(key);
+      }
+    });
+  </script>
+</body>
+</html>

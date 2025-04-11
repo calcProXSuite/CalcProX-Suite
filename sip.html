@@ -4,141 +4,181 @@
     <title>SIP Calculator - CalcProX Suite</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #fdfdfd;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff8f0;
+            color: #333;
             margin: 0;
-            padding: 0;
-        }.container {
-        max-width: 700px;
-        margin: 40px auto;
-        padding: 30px;
-        background-color: #ffffff;
+            padding: 20px;
+        }h1 {
+        text-align: center;
+        background-color: #ff7a00;
+        color: white;
+        padding: 10px;
         border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border: 3px solid #ff6600;
     }
 
-    h1 {
-        text-align: center;
-        color: #333;
-        border-bottom: 3px solid orange;
-        padding-bottom: 10px;
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     label {
-        display: block;
-        margin-top: 20px;
-        color: #333;
+        font-weight: bold;
     }
 
     input {
         width: 100%;
         padding: 10px;
-        margin-top: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        margin: 10px 0;
+        border: 2px solid #ffcc99;
+        border-radius: 8px;
     }
 
     button {
-        margin-top: 20px;
-        padding: 10px 15px;
-        background-color: orange;
-        border: none;
-        border-radius: 5px;
+        background-color: #ff7a00;
         color: white;
-        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
         cursor: pointer;
+        margin-top: 10px;
     }
 
-    #result {
-        margin-top: 30px;
-        padding: 20px;
-        border: 2px solid orange;
-        border-radius: 8px;
-        background-color: #fff8f0;
-    }
-
-    .graph {
-        margin-top: 30px;
-    }
-
-    .buttons {
+    .result, .info {
         margin-top: 20px;
+        background-color: #fff3e0;
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 6px solid #ff9800;
+    }
+
+    .actions {
+        margin-top: 15px;
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        justify-content: space-around;
     }
 
     .tagline {
         text-align: center;
-        margin-top: 40px;
-        color: orange;
         font-weight: bold;
-        font-size: 16px;
+        color: #e65100;
+        margin-top: 30px;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
     }
 
     .footer {
-        margin-top: 30px;
         text-align: center;
-        font-size: 14px;
+        margin-top: 20px;
         color: gray;
+    }
+
+    canvas {
+        margin-top: 20px;
     }
 </style>
 
 </head><body>
+    <h1>SIP Calculator</h1>
     <div class="container">
-        <h1>SIP Calculator</h1>
-        <label for="monthly">Monthly Investment Amount (₹)</label>
-        <input type="number" id="monthly" placeholder="e.g. 5000"><label for="rate">Expected Annual Return Rate (%)</label>
-    <input type="number" id="rate" placeholder="e.g. 12">
+        <label for="monthlyInvestment">Monthly Investment (₹):</label>
+        <input type="number" id="monthlyInvestment"><label for="investmentPeriod">Investment Period (Years):</label>
+    <input type="number" id="investmentPeriod">
 
-    <label for="years">Investment Duration (Years)</label>
-    <input type="number" id="years" placeholder="e.g. 10">
+    <label for="interestRate">Expected Annual Return (%):</label>
+    <input type="number" id="interestRate">
 
-    <button onclick="calculateSIP()">Calculate</button>
+    <button onclick="calculateSIP()">Calculate SIP</button>
 
-    <div class="buttons">
+    <div class="result" id="result"></div>
+    <canvas id="sipChart" width="400" height="300"></canvas>
+
+    <div class="actions">
         <button onclick="window.print()">Print</button>
-        <button onclick="navigator.share ? navigator.share({title: document.title, url: window.location.href}) : alert('Sharing not supported');">Share</button>
-        <button onclick="window.location.reload()">Add Another</button>
+        <button onclick="navigator.share({title: 'SIP Result', text: document.getElementById('result').innerText})">Share</button>
+        <button onclick="alert('You can save or bookmark this page for quick access.')">Add</button>
     </div>
 
-    <div id="result"></div>
-
-    <div class="graph">
-        <img src="https://chart.googleapis.com/chart?cht=p&chs=400x200&chd=t:70,30&chl=Invested|Returns&chco=FFA500,FFDDC1" alt="SIP Graph">
+    <div class="info">
+        <h3>What is SIP?</h3>
+        <p>
+            SIP (Systematic Investment Plan) is a disciplined way of investing a fixed amount regularly in mutual funds.
+            It helps you build wealth over time through the power of compounding.
+        </p>
+        <p>
+            Formula: FV = P × [(1 + r)^n – 1] × (1 + r) / r<br>
+            Where:
+            <ul>
+                <li>P = Monthly investment</li>
+                <li>r = Monthly interest rate (annual rate / 12 / 100)</li>
+                <li>n = Total number of months</li>
+                <li>FV = Future value</li>
+            </ul>
+        </p>
+        <p>
+            Benefits:
+            <ul>
+                <li>Start small, grow big</li>
+                <li>Disciplined savings habit</li>
+                <li>Long-term wealth creation</li>
+            </ul>
+        </p>
+        <p>
+            FAQs:
+            <ul>
+                <li><strong>Q:</strong> What happens if I miss a SIP? <strong>A:</strong> Nothing major, but regular investing gives best results.</li>
+                <li><strong>Q:</strong> Can I increase my SIP later? <strong>A:</strong> Yes, anytime!</li>
+            </ul>
+        </p>
     </div>
 
-    <div class="tagline">
-        Goli nahi marenge usko, keh ke lenge uski.
-    </div>
-
-    <div class="footer">
-        All Rights Reserved – CalcProX Suite
-    </div>
+    <div class="tagline">"Goli nahi marenge usko, keh ke lenge uski" – CalcProX Suite</div>
+    <div class="footer">All Rights Reserved – CalcProX Suite</div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function calculateSIP() {
-        const monthly = parseFloat(document.getElementById('monthly').value);
-        const rate = parseFloat(document.getElementById('rate').value) / 100 / 12;
-        const years = parseFloat(document.getElementById('years').value);
+        const monthly = parseFloat(document.getElementById('monthlyInvestment').value);
+        const years = parseFloat(document.getElementById('investmentPeriod').value);
+        const rate = parseFloat(document.getElementById('interestRate').value);
+
         const months = years * 12;
+        const monthlyRate = rate / 12 / 100;
 
-        if (isNaN(monthly) || isNaN(rate) || isNaN(years)) {
-            alert("Please enter valid input values.");
-            return;
-        }
-
-        const futureValue = monthly * (((Math.pow(1 + rate, months) - 1) / rate) * (1 + rate));
-        const investedAmount = monthly * months;
-        const returns = futureValue - investedAmount;
+        const futureValue = monthly * ((Math.pow(1 + monthlyRate, months) - 1) * (1 + monthlyRate)) / monthlyRate;
 
         document.getElementById('result').innerHTML = `
-            <h3>Investment Summary</h3>
-            <p><strong>Total Invested:</strong> ₹${investedAmount.toFixed(2)}</p>
-            <p><strong>Estimated Returns:</strong> ₹${returns.toFixed(2)}</p>
-            <p><strong>Total Value:</strong> ₹${futureValue.toFixed(2)}</p>
+            <strong>Total Investment:</strong> ₹${(monthly * months).toFixed(2)}<br>
+            <strong>Estimated Returns:</strong> ₹${(futureValue - (monthly * months)).toFixed(2)}<br>
+            <strong>Total Value:</strong> ₹${futureValue.toFixed(2)}
         `;
+
+        const ctx = document.getElementById('sipChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Invested', 'Returns'],
+                datasets: [{
+                    label: 'SIP Breakdown',
+                    data: [monthly * months, futureValue - (monthly * months)],
+                    backgroundColor: ['#ffb84d', '#ff704d']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
     }
 </script>
 

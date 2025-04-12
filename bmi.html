@@ -1,116 +1,191 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BMI Calculator – CalcProX Suite</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #ffffff;
-      color: #000;
-    }
-    header {
-      background-color: #0074cc;
-      color: white;
-      padding: 1em;
-      text-align: center;
+      background: #f4f6f8;
+      color: #333;
     }
     .container {
       max-width: 800px;
       margin: auto;
-      padding: 1em;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 30px;
     }
     h1, h2, h3 {
-      color: #0074cc;
+      color: #0066cc;
     }
-    .calculator {
-      border: 1px solid #ccc;
-      padding: 1em;
-      background-color: #f9f9f9;
-      margin-bottom: 1.5em;
-    }
-    .footer {
-      background-color: #f1f1f1;
-      text-align: center;
-      padding: 1em;
-      margin-top: 2em;
+    label {
+      display: block;
+      margin-top: 15px;
       font-weight: bold;
-      border-top: 2px solid #0074cc;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 12px 20px;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #004999;
+    }
+    .result {
+      margin-top: 20px;
+      background: #e6f2ff;
+      padding: 15px;
+      border-left: 5px solid #0066cc;
+      border-radius: 6px;
+    }
+    .banner {
+      background: #ffe0b3;
+      padding: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #888;
+      font-size: 14px;
     }
     .tagline {
+      margin-top: 30px;
+      text-align: center;
       color: red;
       font-weight: bold;
-      margin-top: 1em;
     }
-    .ad-banner {
-      margin: 1em 0;
-      text-align: center;
-      background-color: #ddd;
-      padding: 1em;
-      font-style: italic;
+    .table-container {
+      overflow-x: auto;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1em 0;
+      margin-top: 15px;
     }
     th, td {
-      border: 1px solid #ccc;
-      padding: 0.5em;
-      text-align: center;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
     }
-    .result-box {
-      background-color: #dff0d8;
-      border: 1px solid #3c763d;
-      color: #3c763d;
-      padding: 1em;
-      margin-bottom: 1em;
+    .faq-section {
+      margin-top: 30px;
+    }
+    .faq {
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>BMI Calculator</h1>
-  </header>
   <div class="container">
-    <div class="calculator">
-      <h2>Calculate Your BMI</h2>
-      <form>
-        <label>Age: <input type="number" min="2" max="120" required></label><br><br>
-        <label>Gender:
-          <input type="radio" name="gender" value="male"> Male
-          <input type="radio" name="gender" value="female"> Female
-        </label><br><br>
-        <label>Height: <input type="number" placeholder="feet"> ft <input type="number" placeholder="inches"> in</label><br><br>
-        <label>Weight: <input type="number" placeholder="pounds"></label><br><br>
-        <button type="submit">Calculate</button>
-        <button type="reset">Clear</button>
-      </form>
-    </div><div class="ad-banner">Ad by CalcProX</div>
+    <div class="banner">[Ad Banner Placeholder]</div><h1>BMI Calculator</h1>
 
-<div class="result-box">
-  BMI = 10.8 kg/m² (Severe thinness)<br>
-  Healthy BMI range: 18.5 kg/m² - 25 kg/m²<br>
-  Healthy weight for the height: 128.9 lbs - 174.2 lbs<br>
-  Gain 53.9 lbs to reach a BMI of 18.5 kg/m²<br>
-  BMI Prime: 0.43<br>
-  Ponderal Index: 6.1 kg/m³
+<label for="height">Height (cm):</label>
+<input type="number" id="height" placeholder="Enter your height in centimeters">
+
+<label for="weight">Weight (kg):</label>
+<input type="number" id="weight" placeholder="Enter your weight in kilograms">
+
+<button onclick="calculateBMI()">Calculate BMI</button>
+
+<div class="result" id="result"></div>
+
+<h2>What is BMI?</h2>
+<p>Body Mass Index (BMI) is a simple calculation using a person's height and weight. The formula is: BMI = weight (kg) / [height (m)]². It helps determine whether you're underweight, normal weight, overweight, or obese.</p>
+
+<h2>BMI Chart</h2>
+<div class="table-container">
+  <table>
+    <tr><th>BMI Range</th><th>Category</th></tr>
+    <tr><td>Below 16</td><td>Severe Thinness</td></tr>
+    <tr><td>16 – 16.9</td><td>Moderate Thinness</td></tr>
+    <tr><td>17 – 18.4</td><td>Mild Thinness</td></tr>
+    <tr><td>18.5 – 24.9</td><td>Normal</td></tr>
+    <tr><td>25 – 29.9</td><td>Overweight</td></tr>
+    <tr><td>30 – 34.9</td><td>Obese Class I</td></tr>
+    <tr><td>35 – 39.9</td><td>Obese Class II</td></tr>
+    <tr><td>40 and above</td><td>Obese Class III</td></tr>
+  </table>
 </div>
 
-<section>
-  <h2>BMI Introduction</h2>
-  <p>The Body Mass Index (BMI) Calculator can be used to calculate BMI value and corresponding weight status while taking age into consideration...</p>
-  <!-- Truncated for brevity; full content will be filled in based on uploaded image/text -->
-</section>
+<h2>Why is BMI Important?</h2>
+<p>BMI is used by doctors and health professionals as a general indicator of health. It can be an early sign of potential health problems like diabetes, heart disease, or malnutrition.</p>
 
-<!-- More sections like BMI Table, Charts, Risks, Limitations, etc. -->
+<h2>Limitations of BMI</h2>
+<p>BMI does not distinguish between muscle and fat. A muscular person may have a high BMI but still be healthy. Similarly, BMI may not be accurate for older adults, children, or pregnant women.</p>
+
+<div class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <strong>Q: Is BMI accurate?</strong>
+    <p>A: It's a good general guideline but not a perfect measure of health.</p>
+  </div>
+  <div class="faq">
+    <strong>Q: What BMI is considered obese?</strong>
+    <p>A: A BMI of 30 or above is classified as obese.</p>
+  </div>
+  <div class="faq">
+    <strong>Q: Can BMI change daily?</strong>
+    <p>A: Minor changes can occur based on water intake and food, but long-term trends matter most.</p>
+  </div>
+</div>
 
 <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
+<footer>All Rights Reserved – CalcProX Suite</footer>
 
-  </div>  <div class="footer">
-    All Rights Reserved – CalcProX Suite
-  </div>
-</body>
+  </div>  <script>
+    function calculateBMI() {
+      const heightCm = parseFloat(document.getElementById('height').value);
+      const weightKg = parseFloat(document.getElementById('weight').value);
+      const resultBox = document.getElementById('result');
+
+      if (!heightCm || !weightKg) {
+        resultBox.innerHTML = "<strong>Please enter valid height and weight.</strong>";
+        return;
+      }
+
+      const heightM = heightCm / 100;
+      const bmi = weightKg / (heightM * heightM);
+
+      let category = '';
+      if (bmi < 16) category = 'Severe Thinness';
+      else if (bmi < 17) category = 'Moderate Thinness';
+      else if (bmi < 18.5) category = 'Mild Thinness';
+      else if (bmi < 25) category = 'Normal';
+      else if (bmi < 30) category = 'Overweight';
+      else if (bmi < 35) category = 'Obese Class I';
+      else if (bmi < 40) category = 'Obese Class II';
+      else category = 'Obese Class III';
+
+      const bmiPrime = (bmi / 25).toFixed(2);
+      const ponderalIndex = (weightKg / Math.pow(heightM, 3)).toFixed(2);
+
+      resultBox.innerHTML = `
+        <strong>Your BMI is: ${bmi.toFixed(1)}</strong><br>
+        Category: <strong>${category}</strong><br>
+        BMI Prime: ${bmiPrime}<br>
+        Ponderal Index: ${ponderalIndex}
+      `;
+    }
+  </script></body>
 </html>

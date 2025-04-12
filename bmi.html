@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcProX Suite - BMI Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f8ff;
+      color: #333;
+    }
+    header {
+      background-color: #005a9c;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #005a9c;
+    }
+    label, select, input {
+      display: block;
+      width: 100%;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #e9ecef;
+      font-size: 0.9rem;
+    }
+    .tagline {
+      color: #d9534f;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .language-select {
+      margin-bottom: 1rem;
+    }
+    .ad-banner {
+      background: #ccc;
+      text-align: center;
+      padding: 1rem;
+      margin: 2rem 0;
+      font-weight: bold;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CalcProX BMI Calculator</h1>
+  </header>
+  <div class="container">
+    <div class="language-select">
+      <label for="language">Choose Language:</label>
+      <select id="language">
+        <option>English</option>
+        <option>Hindi</option>
+        <option>Spanish</option>
+        <option>French</option>
+        <option>German</option>
+        <option>Chinese</option>
+        <option>Arabic</option>
+        <option>Bengali</option>
+        <option>Portuguese</option>
+        <option>Russian</option>
+      </select>
+    </div><label for="height">Height (cm):</label>
+<input type="number" id="height" placeholder="Enter height in cm" />
+
+<label for="weight">Weight (kg):</label>
+<input type="number" id="weight" placeholder="Enter weight in kg" />
+
+<button onclick="calculateBMI()">Calculate BMI</button>
+
+<div class="result" id="bmiResult"></div>
+
+<div class="actions">
+  <button onclick="window.print()">Print</button>
+  <button onclick="shareBMI()">Share</button>
+</div>
+
+<div class="ad-banner">Ad Banner Area</div>
+
+  </div>
+  <footer>
+    <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
+    <div>All Rights Reserved – CalcProX Suite</div>
+  </footer>  <script>
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      if (height > 0 && weight > 0) {
+        const heightInMeters = height / 100;
+        const bmi = weight / (heightInMeters * heightInMeters);
+        let category = '';
+        if (bmi < 18.5) category = 'Underweight';
+        else if (bmi < 24.9) category = 'Normal weight';
+        else if (bmi < 29.9) category = 'Overweight';
+        else category = 'Obese';
+        document.getElementById('bmiResult').textContent = `Your BMI is ${bmi.toFixed(1)} (${category})`;
+      } else {
+        document.getElementById('bmiResult').textContent = 'Please enter valid height and weight.';
+      }
+    }
+
+    function shareBMI() {
+      const result = document.getElementById('bmiResult').textContent;
+      if (navigator.share) {
+        navigator.share({
+          title: 'My BMI Result from CalcProX',
+          text: result,
+          url: window.location.href,
+        });
+      } else {
+        alert('Sharing not supported on this browser.');
+      }
+    }
+  </script></body>
+</html>

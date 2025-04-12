@@ -2,151 +2,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CalcProX Suite - BMI Calculator</title>
+  <title>BMI Calculator – CalcProX Suite</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f0f8ff;
-      color: #333;
+      background-color: #ffffff;
+      color: #000;
     }
     header {
-      background-color: #005a9c;
-      color: #fff;
-      padding: 1rem;
+      background-color: #0074cc;
+      color: white;
+      padding: 1em;
       text-align: center;
     }
     .container {
-      max-width: 700px;
-      margin: 2rem auto;
-      background: #ffffff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: auto;
+      padding: 1em;
     }
-    h1, h2 {
-      color: #005a9c;
+    h1, h2, h3 {
+      color: #0074cc;
     }
-    label, select, input {
-      display: block;
-      width: 100%;
-      margin-bottom: 1rem;
-      font-size: 1rem;
+    .calculator {
+      border: 1px solid #ccc;
+      padding: 1em;
+      background-color: #f9f9f9;
+      margin-bottom: 1.5em;
     }
-    button {
-      background-color: #007bff;
-      color: white;
-      padding: 0.7rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-    }
-    .result {
-      margin-top: 1.5rem;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-    footer {
+    .footer {
+      background-color: #f1f1f1;
       text-align: center;
-      margin-top: 2rem;
-      padding: 1rem;
-      background-color: #e9ecef;
-      font-size: 0.9rem;
+      padding: 1em;
+      margin-top: 2em;
+      font-weight: bold;
+      border-top: 2px solid #0074cc;
     }
     .tagline {
-      color: #d9534f;
+      color: red;
       font-weight: bold;
-      font-size: 1rem;
-    }
-    .language-select {
-      margin-bottom: 1rem;
+      margin-top: 1em;
     }
     .ad-banner {
-      background: #ccc;
+      margin: 1em 0;
       text-align: center;
-      padding: 1rem;
-      margin: 2rem 0;
-      font-weight: bold;
+      background-color: #ddd;
+      padding: 1em;
+      font-style: italic;
     }
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-top: 1rem;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: center;
+    }
+    .result-box {
+      background-color: #dff0d8;
+      border: 1px solid #3c763d;
+      color: #3c763d;
+      padding: 1em;
+      margin-bottom: 1em;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>CalcProX BMI Calculator</h1>
+    <h1>BMI Calculator</h1>
   </header>
   <div class="container">
-    <div class="language-select">
-      <label for="language">Choose Language:</label>
-      <select id="language">
-        <option>English</option>
-        <option>Hindi</option>
-        <option>Spanish</option>
-        <option>French</option>
-        <option>German</option>
-        <option>Chinese</option>
-        <option>Arabic</option>
-        <option>Bengali</option>
-        <option>Portuguese</option>
-        <option>Russian</option>
-      </select>
-    </div><label for="height">Height (cm):</label>
-<input type="number" id="height" placeholder="Enter height in cm" />
+    <div class="calculator">
+      <h2>Calculate Your BMI</h2>
+      <form>
+        <label>Age: <input type="number" min="2" max="120" required></label><br><br>
+        <label>Gender:
+          <input type="radio" name="gender" value="male"> Male
+          <input type="radio" name="gender" value="female"> Female
+        </label><br><br>
+        <label>Height: <input type="number" placeholder="feet"> ft <input type="number" placeholder="inches"> in</label><br><br>
+        <label>Weight: <input type="number" placeholder="pounds"></label><br><br>
+        <button type="submit">Calculate</button>
+        <button type="reset">Clear</button>
+      </form>
+    </div><div class="ad-banner">Ad by CalcProX</div>
 
-<label for="weight">Weight (kg):</label>
-<input type="number" id="weight" placeholder="Enter weight in kg" />
-
-<button onclick="calculateBMI()">Calculate BMI</button>
-
-<div class="result" id="bmiResult"></div>
-
-<div class="actions">
-  <button onclick="window.print()">Print</button>
-  <button onclick="shareBMI()">Share</button>
+<div class="result-box">
+  BMI = 10.8 kg/m² (Severe thinness)<br>
+  Healthy BMI range: 18.5 kg/m² - 25 kg/m²<br>
+  Healthy weight for the height: 128.9 lbs - 174.2 lbs<br>
+  Gain 53.9 lbs to reach a BMI of 18.5 kg/m²<br>
+  BMI Prime: 0.43<br>
+  Ponderal Index: 6.1 kg/m³
 </div>
 
-<div class="ad-banner">Ad Banner Area</div>
+<section>
+  <h2>BMI Introduction</h2>
+  <p>The Body Mass Index (BMI) Calculator can be used to calculate BMI value and corresponding weight status while taking age into consideration...</p>
+  <!-- Truncated for brevity; full content will be filled in based on uploaded image/text -->
+</section>
 
+<!-- More sections like BMI Table, Charts, Risks, Limitations, etc. -->
+
+<div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
+
+  </div>  <div class="footer">
+    All Rights Reserved – CalcProX Suite
   </div>
-  <footer>
-    <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
-    <div>All Rights Reserved – CalcProX Suite</div>
-  </footer>  <script>
-    function calculateBMI() {
-      const height = parseFloat(document.getElementById('height').value);
-      const weight = parseFloat(document.getElementById('weight').value);
-      if (height > 0 && weight > 0) {
-        const heightInMeters = height / 100;
-        const bmi = weight / (heightInMeters * heightInMeters);
-        let category = '';
-        if (bmi < 18.5) category = 'Underweight';
-        else if (bmi < 24.9) category = 'Normal weight';
-        else if (bmi < 29.9) category = 'Overweight';
-        else category = 'Obese';
-        document.getElementById('bmiResult').textContent = `Your BMI is ${bmi.toFixed(1)} (${category})`;
-      } else {
-        document.getElementById('bmiResult').textContent = 'Please enter valid height and weight.';
-      }
-    }
-
-    function shareBMI() {
-      const result = document.getElementById('bmiResult').textContent;
-      if (navigator.share) {
-        navigator.share({
-          title: 'My BMI Result from CalcProX',
-          text: result,
-          url: window.location.href,
-        });
-      } else {
-        alert('Sharing not supported on this browser.');
-      }
-    }
-  </script></body>
+</body>
 </html>

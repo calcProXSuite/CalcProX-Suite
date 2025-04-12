@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Calculator - CalcProX Suite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f7ff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .banner {
+      background: url('https://via.placeholder.com/728x90?text=Your+Ad+Here') no-repeat center;
+      background-size: cover;
+      height: 90px;
+      margin: 10px;
+      border-radius: 8px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #004080;
+    }
+    label, input, select {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result, .tools, .explanation, footer {
+      margin-top: 20px;
+    }
+    .tools button {
+      width: auto;
+      margin-right: 10px;
+      background-color: #007bff;
+    }
+    .tagline {
+      text-align: center;
+      margin-top: 40px;
+      font-weight: bold;
+      color: #d9534f;
+    }
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin: 30px 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CalcProX Suite - Age Calculator</h1>
+  </header>
+  <div class="banner"></div>  <div class="container">
+    <h2>Calculate Your Age</h2>
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" /><label for="reference-date">Age at the Date of:</label>
+<input type="date" id="reference-date" />
+
+<button onclick="calculateAge()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+<div class="tools">
+  <button onclick="window.print()">Print</button>
+  <button onclick="shareResult()">Share</button>
+</div>
+
+<div class="explanation">
+  <p>The age of a person can be counted differently in different cultures. This calculator is based on the most common age system...</p>
+  <p>In some situations, the months and day result of this age calculator may be confusing...</p>
+</div>
+
+  </div>  <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>  <footer>
+    All Rights Reserved – CalcProX Suite
+  </footer>  <script>
+    function calculateAge() {
+      const dob = new Date(document.getElementById('dob').value);
+      const refDate = new Date(document.getElementById('reference-date').value);
+      if (!dob || !refDate || dob > refDate) {
+        document.getElementById('result').innerText = 'Please enter valid dates.';
+        return;
+      }
+      let years = refDate.getFullYear() - dob.getFullYear();
+      let months = refDate.getMonth() - dob.getMonth();
+      let days = refDate.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        days += new Date(refDate.getFullYear(), refDate.getMonth(), 0).getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.getElementById('result').innerText = `Age: ${years} years, ${months} months, ${days} days`;
+    }
+
+    function shareResult() {
+      const resultText = document.getElementById('result').innerText;
+      if (navigator.share) {
+        navigator.share({
+          title: 'My Age Result - CalcProX',
+          text: resultText,
+          url: window.location.href
+        });
+      } else {
+        alert('Sharing not supported in this browser.');
+      }
+    }
+  </script></body>
+</html>

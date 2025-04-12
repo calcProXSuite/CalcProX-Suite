@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Percentage Calculator - CalcProX Suite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    h1, h2 {
+      color: #007BFF;
+    }
+    .calc-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #666;
+    }
+    .tagline {
+      text-align: center;
+      color: #d9534f;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Percentage Calculator</h1>
+
+  <div class="calc-section">
+    <h2>1. What is X% of Y?</h2>
+    <input type="number" id="x1" placeholder="Enter X (percentage)">
+    <input type="number" id="y1" placeholder="Enter Y (number)">
+    <button onclick="calculate1()">Calculate</button>
+    <div class="result" id="result1"></div>
+  </div>
+
+  <div class="calc-section">
+    <h2>2. X is what percent of Y?</h2>
+    <input type="number" id="x2" placeholder="Enter X (part)">
+    <input type="number" id="y2" placeholder="Enter Y (whole)">
+    <button onclick="calculate2()">Calculate</button>
+    <div class="result" id="result2"></div>
+  </div>
+
+  <div class="calc-section">
+    <h2>3. X is Y% of what?</h2>
+    <input type="number" id="x3" placeholder="Enter X (value)">
+    <input type="number" id="y3" placeholder="Enter Y (percentage)">
+    <button onclick="calculate3()">Calculate</button>
+    <div class="result" id="result3"></div>
+  </div>
+
+  <div class="calc-section">
+    <h2>4. Percentage Increase/Decrease</h2>
+    <input type="number" id="x4" placeholder="Old Value">
+    <input type="number" id="y4" placeholder="New Value">
+    <button onclick="calculate4()">Calculate</button>
+    <div class="result" id="result4"></div>
+  </div>
+
+  <div class="calc-section">
+    <h2>5. Percentage Change Formula:</h2>
+    <p><strong>Percentage Change = [(New - Old) / Old] × 100</strong></p>
+    <p>Use this formula to calculate either increase or decrease in percentage.</p>
+  </div>
+
+  <div class="tagline">
+    Goli nahi marenge usko, keh ke lenge uski
+  </div>
+
+  <div class="footer">
+    All Rights Reserved – CalcProX Suite
+  </div>
+
+  <script>
+    function calculate1() {
+      let x = parseFloat(document.getElementById("x1").value);
+      let y = parseFloat(document.getElementById("y1").value);
+      if (!isNaN(x) && !isNaN(y)) {
+        document.getElementById("result1").innerText = `${x}% of ${y} is ${(x/100)*y}`;
+      } else {
+        document.getElementById("result1").innerText = "Please enter valid numbers.";
+      }
+    }
+
+    function calculate2() {
+      let x = parseFloat(document.getElementById("x2").value);
+      let y = parseFloat(document.getElementById("y2").value);
+      if (!isNaN(x) && !isNaN(y) && y !== 0) {
+        document.getElementById("result2").innerText = `${x} is ${(x/y)*100}% of ${y}`;
+      } else {
+        document.getElementById("result2").innerText = "Please enter valid numbers.";
+      }
+    }
+
+    function calculate3() {
+      let x = parseFloat(document.getElementById("x3").value);
+      let y = parseFloat(document.getElementById("y3").value);
+      if (!isNaN(x) && !isNaN(y) && y !== 0) {
+        document.getElementById("result3").innerText = `${x} is ${y}% of ${x * 100 / y}`;
+      } else {
+        document.getElementById("result3").innerText = "Please enter valid numbers.";
+      }
+    }
+
+    function calculate4() {
+      let oldVal = parseFloat(document.getElementById("x4").value);
+      let newVal = parseFloat(document.getElementById("y4").value);
+      if (!isNaN(oldVal) && !isNaN(newVal) && oldVal !== 0) {
+        let change = ((newVal - oldVal) / oldVal) * 100;
+        let type = change > 0 ? "increase" : "decrease";
+        document.getElementById("result4").innerText = `There is a ${Math.abs(change).toFixed(2)}% ${type}.`;
+      } else {
+        document.getElementById("result4").innerText = "Please enter valid numbers.";
+      }
+    }
+  </script>
+</body>
+</html>

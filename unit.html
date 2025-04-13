@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit Converter - CalcProX Suite</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f7ff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+    }
+    .converter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    select, input {
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 45%;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 1em;
+      margin: 10px 5px 0 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-share { background-color: #28a745; color: white; }
+    .btn-print { background-color: #007bff; color: white; }
+    .info-section {
+      margin-top: 30px;
+    }
+    footer {
+      background-color: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+    .tagline {
+      font-weight: bold;
+      color: #ffeb3b;
+      margin-top: 10px;
+    }
+    .ad-banner {
+      background-color: #e0e0e0;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+      border-radius: 6px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CalcProX Unit Converter</h1>
+  </header>  <main>
+    <div class="converter">
+      <input type="number" placeholder="Enter value" id="inputValue">
+      <select id="fromUnit">
+        <option value="meter">Meter</option>
+        <option value="kilometer">Kilometer</option>
+        <option value="mile">Mile</option>
+      </select>
+      <select id="toUnit">
+        <option value="kilometer">Kilometer</option>
+        <option value="meter">Meter</option>
+        <option value="mile">Mile</option>
+      </select>
+      <input type="text" placeholder="Converted value" id="outputValue" readonly>
+    </div><button class="btn-share" onclick="shareResult()">Share</button>
+<button class="btn-print" onclick="window.print()">Print</button>
+
+<div class="ad-banner">Ad Space - Your Ad Here</div>
+
+<div class="info-section">
+  <h2>What is a Unit Converter?</h2>
+  <p>A unit converter is a tool that allows you to convert different units of measurement such as length, weight, volume, temperature, speed, and many more. Whether you’re a student, engineer, traveler, or someone dealing with everyday tasks, a unit converter simplifies complex conversions instantly.</p>
+
+  <h2>Why Use CalcProX Unit Converter?</h2>
+  <ul>
+    <li>Accurate and fast conversion results</li>
+    <li>User-friendly and mobile responsive design</li>
+    <li>Supports a wide range of units</li>
+    <li>Free to use and regularly updated</li>
+  </ul>
+
+  <h2>Popular Unit Categories:</h2>
+  <ul>
+    <li>Length (meter, kilometer, mile, inch, foot)</li>
+    <li>Weight (gram, kilogram, pound, ounce)</li>
+    <li>Temperature (Celsius, Fahrenheit, Kelvin)</li>
+    <li>Volume (liter, milliliter, gallon)</li>
+    <li>Speed (km/h, mph, m/s)</li>
+    <li>Time (second, minute, hour)</li>
+    <li>Area (sq meter, acre, hectare)</li>
+  </ul>
+
+  <h2>How to Use</h2>
+  <p>Simply input the value, select the unit to convert from, choose the target unit, and you will get the converted result instantly.</p>
+</div>
+
+  </main>  <footer>
+    <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
+    <div>All Rights Reserved – CalcProX Suite</div>
+  </footer>  <script>
+    function shareResult() {
+      const value = document.getElementById("outputValue").value;
+      const shareData = {
+        title: 'Unit Conversion Result',
+        text: `Converted Value: ${value}`,
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(console.error);
+      } else {
+        alert("Sharing not supported on this browser.");
+      }
+    }
+  </script></body>
+</html>

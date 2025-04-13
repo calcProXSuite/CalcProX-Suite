@@ -147,45 +147,91 @@
     <div>All Rights Reserved – CalcProX Suite</div>
   </footer>  <script>
     const unitOptions = {
-      length: ["meter", "kilometer", "mile", "inch", "foot", "centimeter"],
-      weight: ["gram", "kilogram", "pound", "ounce"],
-      temperature: ["celsius", "fahrenheit", "kelvin"],
-      volume: ["liter", "milliliter", "gallon"],
-      time: ["second", "minute", "hour"],
-      area: ["sq meter", "acre", "hectare"]
+      length: {
+        meter: 1,
+        kilometer: 0.001,
+        mile: 0.000621371,
+        inch: 39.3701,
+        foot: 3.28084,
+        centimeter: 100
+      },
+      weight: {
+        gram: 1,
+        kilogram: 0.001,
+        pound: 0.00220462,
+        ounce: 0.035274
+      },
+      temperature: ['celsius', 'fahrenheit', 'kelvin'],
+      volume: {
+        liter: 1,
+        milliliter: 1000,
+        gallon: 0.264172
+      },
+      time: {
+        second: 1,
+        minute: 1 / 60,
+        hour: 1 / 3600
+      },
+      area: {
+        'sq meter': 1,
+        acre: 0.000247105,
+        hectare: 0.0001
+      }
     };
+
+    let currentCategory = 'length';
 
     function populateUnits(category) {
       const from = document.getElementById("fromUnit");
       const to = document.getElementById("toUnit");
       from.innerHTML = "";
       to.innerHTML = "";
-      unitOptions[category].forEach(unit => {
-        const option1 = document.createElement("option");
-        option1.value = unit;
-        option1.text = unit;
-        const option2 = option1.cloneNode(true);
-        from.add(option1);
-        to.add(option2);
-      });
+
+      const units = unitOptions[category];
+      if (Array.isArray(units)) {
+        units.forEach(unit => {
+          let opt1 = new Option(unit, unit);
+          let opt2 = new Option(unit, unit);
+          from.add(opt1);
+          to.add(opt2);
+        });
+      } else {
+        for (let unit in units) {
+          let opt1 = new Option(unit, unit);
+          let opt2 = new Option(unit, unit);
+          from.add(opt1);
+          to.add(opt2);
+        }
+      }
     }
 
     function convertValue() {
       const val = parseFloat(document.getElementById("inputValue").value);
       const from = document.getElementById("fromUnit").value;
       const to = document.getElementById("toUnit").value;
-      let result = val;
 
-      if (from === to) {
-        result = val;
+      if (isNaN(val)) return;
+
+      let result;
+      if (currentCategory === 'temperature') {
+        if (from === 'celsius') {
+          result = to === 'fahrenheit' ? (val * 9 / 5 + 32) : to === 'kelvin' ? (val + 273.15) : val;
+        } else if (from === 'fahrenheit') {
+          result = to === 'celsius' ? ((val - 32) * 5 / 9) : to === 'kelvin' ? ((val - 32) * 5 / 9 + 273.15) : val;
+        } else if (from === 'kelvin') {
+          result = to === 'celsius' ? (val - 273.15) : to === 'fahrenheit' ? ((val - 273.15) * 9 / 5 + 32) : val;
+        }
       } else {
-        // Simple demo conversion logic (should be replaced with accurate formulas)
-        result = (val * 1.0).toFixed(4);
+        const baseFrom = unitOptions[currentCategory][from];
+        const baseTo = unitOptions[currentCategory][to];
+        result = (val / baseFrom) * baseTo;
       }
-      document.getElementById("outputValue").value = result;
+
+      document.getElementById("outputValue").value = result.toFixed(4);
     }
 
     function setCategory(category) {
+      currentCategory = category;
       populateUnits(category);
       document.getElementById("inputValue").value = "";
       document.getElementById("outputValue").value = "";
@@ -209,7 +255,6 @@
       }
     }
 
-    // Set default category on load
     setCategory("length");
   </script></body>
 </html>

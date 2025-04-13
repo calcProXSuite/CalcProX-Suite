@@ -74,26 +74,56 @@
       border-radius: 6px;
       color: #555;
     }
+    .category-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .category-buttons button {
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .category-buttons button:hover {
+      background-color: #357ab7;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>CalcProX Unit Converter</h1>
   </header>  <main>
-    <div class="converter">
-      <input type="number" placeholder="Enter value" id="inputValue">
-      <select id="fromUnit">
-        <option value="meter">Meter</option>
-        <option value="kilometer">Kilometer</option>
-        <option value="mile">Mile</option>
-      </select>
-      <select id="toUnit">
-        <option value="kilometer">Kilometer</option>
-        <option value="meter">Meter</option>
-        <option value="mile">Mile</option>
-      </select>
-      <input type="text" placeholder="Converted value" id="outputValue" readonly>
-    </div><button class="btn-share" onclick="shareResult()">Share</button>
+    <div class="category-buttons">
+      <button>Length</button>
+      <button>Weight</button>
+      <button>Temperature</button>
+      <button>Volume</button>
+      <button>Time</button>
+      <button>Area</button>
+    </div><div class="converter">
+  <input type="number" placeholder="Enter value" id="inputValue">
+  <select id="fromUnit">
+    <option value="meter">Meter</option>
+    <option value="kilometer">Kilometer</option>
+    <option value="mile">Mile</option>
+    <option value="inch">Inch</option>
+    <option value="foot">Foot</option>
+    <option value="centimeter">Centimeter</option>
+  </select>
+  <select id="toUnit">
+    <option value="kilometer">Kilometer</option>
+    <option value="meter">Meter</option>
+    <option value="mile">Mile</option>
+    <option value="inch">Inch</option>
+    <option value="foot">Foot</option>
+    <option value="centimeter">Centimeter</option>
+  </select>
+  <input type="text" placeholder="Converted value" id="outputValue" readonly>
+</div>
+
+<button class="btn-share" onclick="shareResult()">Share</button>
 <button class="btn-print" onclick="window.print()">Print</button>
 
 <div class="ad-banner">Ad Space - Your Ad Here</div>
@@ -112,7 +142,7 @@
 
   <h2>Popular Unit Categories:</h2>
   <ul>
-    <li>Length (meter, kilometer, mile, inch, foot)</li>
+    <li>Length (meter, kilometer, mile, inch, foot, centimeter)</li>
     <li>Weight (gram, kilogram, pound, ounce)</li>
     <li>Temperature (Celsius, Fahrenheit, Kelvin)</li>
     <li>Volume (liter, milliliter, gallon)</li>

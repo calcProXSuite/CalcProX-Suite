@@ -1,117 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Currency Converter – CalcProX Suite</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
       margin: 0;
-      background-color: #f4f4f4;
+      padding: 0;
     }
     .container {
       max-width: 900px;
       margin: auto;
       padding: 20px;
-      background: #fff;
+      background: #ffffff;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
     }
-    h1, h2 {
+    h1 {
       color: #2c3e50;
+      text-align: center;
     }
     .converter {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
       gap: 10px;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
     select, input, button {
       padding: 10px;
       font-size: 16px;
+      width: 100%;
+    }
+    button {
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
     #result {
       font-weight: bold;
       margin-top: 10px;
     }
-    #table-area {
-      overflow-x: auto;
-      margin-top: 20px;
+    .chart-section {
+      margin-top: 30px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
+    canvas {
+      max-width: 100%;
     }
     .footer {
       text-align: center;
-      margin-top: 30px;
       font-size: 14px;
       color: #555;
+      margin-top: 30px;
     }
     .tagline {
+      text-align: center;
       font-weight: bold;
       color: #e74c3c;
       margin-top: 20px;
-    }
-    .btn-group {
-      margin-top: 10px;
-    }
-    .btn-group button {
-      margin-right: 10px;
-      background: #34495e;
-      color: #fff;
-      border: none;
-      cursor: pointer;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Currency Converter – CalcProX Suite</h1>
+    <h1>मुद्रा परिवर्तक – CalcProX Suite</h1>
     <div class="converter">
-      <input type="number" id="amount" placeholder="Enter amount" />
+      <input type="number" id="amount" placeholder="राशि दर्ज करें">
       <select id="fromCurrency"></select>
       <select id="toCurrency"></select>
-      <button onclick="convertCurrency()">Convert</button>
+      <button onclick="convertCurrency()">परिवर्तित करें</button>
     </div>
-    <div id="result">Fetching exchange rate...</div>
-    <div class="btn-group">
-      <button onclick="window.print()">Print</button>
-      <button onclick="navigator.share ? navigator.share({text: document.getElementById('result').textContent}) : alert('Share not supported')">Share</button>
-    </div>
-    <section>
-      <h2>How Currency Conversion Works</h2>
-      <p>Currency conversion is the process of exchanging one form of currency for another. The value is determined by the foreign exchange market, which operates 24/7 globally. Exchange rates fluctuate constantly based on supply, demand, interest rates, economic performance, and geopolitical stability.</p>
-    </section>
+    <div id="result">परिणाम यहाँ दिखेगा</div><div class="chart-section">
+  <h3>7 दिन का रुझान</h3>
+  <canvas id="chart7"></canvas>
 
-    <section>
-      <h2>Frequently Asked Questions (FAQs)</h2>
-      <ul>
-        <li><strong>Q:</strong> How accurate are these rates?<br><strong>A:</strong> Rates are fetched live from exchangerate.host, ensuring real-time accuracy.</li>
-        <li><strong>Q:</strong> How often are rates updated?<br><strong>A:</strong> They update with every conversion request.</li>
-        <li><strong>Q:</strong> Can I convert crypto currencies too?<br><strong>A:</strong> Currently only fiat currencies are supported.</li>
-      </ul>
-    </section>
+  <h3>1 महीने का रुझान</h3>
+  <canvas id="chart30"></canvas>
+</div>
 
-    <section>
-      <h2>Currency Conversion Table (Base: 1 EUR)</h2>
-      <div id="table-area">Loading table...</div>
-    </section>
+<div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
+<div class="footer">All Rights Reserved – CalcProX Suite</div>
 
-    <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
-    <div class="footer">All Rights Reserved – CalcProX Suite</div>
-  </div>  
+  </div>  <script>
+    const apiBase = 'https://api.exchangerate.host';
 
-  <script>
-    const apiURL = 'https://api.exchangerate.host/latest';
-
-    async function loadCurrencies() {
-      const res = await fetch(apiURL);
+    async function populateCurrencies() {
+      const res = await fetch(`${apiBase}/latest`);
       const data = await res.json();
       const currencies = Object.keys(data.rates);
       const from = document.getElementById('fromCurrency');
@@ -121,6 +100,7 @@
         from.innerHTML += `<option value="${cur}">${cur}</option>`;
         to.innerHTML += `<option value="${cur}">${cur}</option>`;
       });
+
       from.value = 'USD';
       to.value = 'INR';
     }
@@ -129,30 +109,52 @@
       const amount = document.getElementById('amount').value;
       const from = document.getElementById('fromCurrency').value;
       const to = document.getElementById('toCurrency').value;
-      if (!amount || isNaN(amount)) return alert('Enter a valid amount');
+      if (!amount || isNaN(amount)) return alert('कृपया मान्य राशि दर्ज करें');
 
-      const res = await fetch(`${apiURL}?base=${from}&symbols=${to}`);
+      const res = await fetch(`${apiBase}/convert?from=${from}&to=${to}&amount=${amount}`);
       const data = await res.json();
-      const rate = data.rates[to];
-      const result = (amount * rate).toFixed(2);
-      document.getElementById('result').textContent = `${amount} ${from} = ${result} ${to}`;
+      document.getElementById('result').textContent = `${amount} ${from} = ${data.result.toFixed(2)} ${to}`;
+      loadCharts(from, to);
     }
 
-    async function loadTable() {
-      const res = await fetch(`${apiURL}?base=EUR`);
-      const data = await res.json();
-      let html = '<table><tr><th>Currency</th><th>Rate</th></tr>';
-      for (const [cur, val] of Object.entries(data.rates)) {
-        html += `<tr><td>${cur}</td><td>${val.toFixed(4)}</td></tr>`;
-      }
-      html += '</table>';
-      document.getElementById('table-area').innerHTML = html;
+    async function loadCharts(from, to) {
+      const chart7 = await fetch(`${apiBase}/timeseries?start_date=${getPastDate(7)}&end_date=${getToday()}&base=${from}&symbols=${to}`);
+      const data7 = await chart7.json();
+      drawChart(data7.rates, from, to, 'chart7');
+
+      const chart30 = await fetch(`${apiBase}/timeseries?start_date=${getPastDate(30)}&end_date=${getToday()}&base=${from}&symbols=${to}`);
+      const data30 = await chart30.json();
+      drawChart(data30.rates, from, to, 'chart30');
     }
 
-    window.onload = () => {
-      loadCurrencies();
-      loadTable();
-    };
-  </script>
-</body>
+    function drawChart(data, from, to, canvasId) {
+      const labels = Object.keys(data);
+      const values = labels.map(date => data[date][to]);
+      const ctx = document.getElementById(canvasId).getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: `${from} से ${to} का दर`,
+            data: values,
+            borderColor: '#e67e22',
+            fill: false
+          }]
+        }
+      });
+    }
+
+    function getToday() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function getPastDate(days) {
+      const d = new Date();
+      d.setDate(d.getDate() - days);
+      return d.toISOString().split('T')[0];
+    }
+
+    window.onload = populateCurrencies;
+  </script></body>
 </html>

@@ -1,8 +1,9 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Currency Converter – CalcProX Suite</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -33,6 +34,22 @@
       font-weight: bold;
       margin-top: 10px;
     }
+    .btn-group {
+      margin-top: 10px;
+    }
+    .btn-group button {
+      margin-right: 10px;
+      background: #34495e;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    #chart-area {
+      margin-top: 30px;
+    }
+    canvas {
+      max-width: 100%;
+    }
     #table-area {
       overflow-x: auto;
       margin-top: 20px;
@@ -46,26 +63,16 @@
       padding: 10px;
       text-align: center;
     }
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #555;
-    }
     .tagline {
       font-weight: bold;
       color: #e74c3c;
       margin-top: 20px;
     }
-    .btn-group {
-      margin-top: 10px;
-    }
-    .btn-group button {
-      margin-right: 10px;
-      background: #34495e;
-      color: #fff;
-      border: none;
-      cursor: pointer;
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #555;
     }
   </style>
 </head>
@@ -83,17 +90,13 @@
       <button onclick="window.print()">Print</button>
       <button onclick="navigator.share ? navigator.share({text: document.getElementById('result').textContent}) : alert('Share not supported')">Share</button>
     </div><section>
-  <h2>How Currency Conversion Works</h2>
-  <p>Currency conversion is the process of exchanging one form of currency for another. The value is determined by the foreign exchange market, which operates 24/7 globally. Exchange rates fluctuate constantly based on supply, demand, interest rates, economic performance, and geopolitical stability.</p>
+  <h2>7-Day Exchange Rate Trend</h2>
+  <canvas id="chart7"></canvas>
 </section>
 
 <section>
-  <h2>Frequently Asked Questions (FAQs)</h2>
-  <ul>
-    <li><strong>Q:</strong> How accurate are these rates?<br><strong>A:</strong> Rates are fetched live from exchangerate.host, ensuring real-time accuracy.</li>
-    <li><strong>Q:</strong> How often are rates updated?<br><strong>A:</strong> They update with every conversion request.</li>
-    <li><strong>Q:</strong> Can I convert crypto currencies too?<br><strong>A:</strong> Currently only fiat currencies are supported.</li>
-  </ul>
+  <h2>1-Month Exchange Rate Trend</h2>
+  <canvas id="chart30"></canvas>
 </section>
 
 <section>
@@ -101,14 +104,28 @@
   <div id="table-area">Loading table...</div>
 </section>
 
+<section>
+  <h2>How Currency Conversion Works</h2>
+  <p>Currency conversion is the process of exchanging one form of currency for another. The exchange rate fluctuates based on supply and demand, geopolitical stability, interest rates, and global economic conditions.</p>
+</section>
+
+<section>
+  <h2>FAQs</h2>
+  <ul>
+    <li><strong>Q:</strong> How accurate are these rates?<br><strong>A:</strong> Fetched from exchangerate.host in real-time.</li>
+    <li><strong>Q:</strong> How many currencies supported?<br><strong>A:</strong> More than 170 global currencies.</li>
+    <li><strong>Q:</strong> Are crypto conversions supported?<br><strong>A:</strong> Currently only fiat currencies.</li>
+  </ul>
+</section>
+
 <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
 <div class="footer">All Rights Reserved – CalcProX Suite</div>
 
   </div>  <script>
-    const apiURL = 'https://api.exchangerate.host/latest';
+    const apiBase = 'https://api.exchangerate.host';
 
     async function loadCurrencies() {
-      const res = await fetch(apiURL);
+      const res = await fetch(`${apiBase}/latest`);
       const data = await res.json();
       const currencies = Object.keys(data.rates);
       const from = document.getElementById('fromCurrency');
@@ -128,15 +145,56 @@
       const to = document.getElementById('toCurrency').value;
       if (!amount || isNaN(amount)) return alert('Enter a valid amount');
 
-      const res = await fetch(`${apiURL}?base=${from}&symbols=${to}`);
+      const res = await fetch(`${apiBase}/convert?from=${from}&to=${to}&amount=${amount}`);
       const data = await res.json();
-      const rate = data.rates[to];
-      const result = (amount * rate).toFixed(2);
-      document.getElementById('result').textContent = `${amount} ${from} = ${result} ${to}`;
+      document.getElementById('result').textContent = `${amount} ${from} = ${data.result.toFixed(2)} ${to}`;
+      drawCharts(from, to);
+    }
+
+    async function drawCharts(from, to) {
+      const dates7 = [], values7 = [], dates30 = [], values30 = [];
+
+      const [res7, res30] = await Promise.all([
+        fetch(`${apiBase}/timeseries?start_date=${getDate(7)}&end_date=${getDate(0)}&base=${from}&symbols=${to}`),
+        fetch(`${apiBase}/timeseries?start_date=${getDate(30)}&end_date=${getDate(0)}&base=${from}&symbols=${to}`)
+      ]);
+
+      const data7 = await res7.json();
+      const data30 = await res30.json();
+
+      for (const [date, val] of Object.entries(data7.rates)) {
+        dates7.push(date);
+        values7.push(val[to]);
+      }
+      for (const [date, val] of Object.entries(data30.rates)) {
+        dates30.push(date);
+        values30.push(val[to]);
+      }
+
+      renderChart('chart7', dates7, values7, `${from} to ${to} - 7 Days`);
+      renderChart('chart30', dates30, values30, `${from} to ${to} - 1 Month`);
+    }
+
+    function renderChart(id, labels, data, label) {
+      const ctx = document.getElementById(id).getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{ label, data, borderColor: '#3498db', fill: false }]
+        },
+        options: { responsive: true, scales: { y: { beginAtZero: false } } }
+      });
+    }
+
+    function getDate(daysAgo) {
+      const date = new Date();
+      date.setDate(date.getDate() - daysAgo);
+      return date.toISOString().split('T')[0];
     }
 
     async function loadTable() {
-      const res = await fetch(`${apiURL}?base=EUR`);
+      const res = await fetch(`${apiBase}/latest?base=EUR`);
       const data = await res.json();
       let html = '<table><tr><th>Currency</th><th>Rate</th></tr>';
       for (const [cur, val] of Object.entries(data.rates)) {

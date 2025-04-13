@@ -78,6 +78,7 @@
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
     .category-buttons button {
       background-color: #4a90e2;
@@ -96,30 +97,16 @@
     <h1>CalcProX Unit Converter</h1>
   </header>  <main>
     <div class="category-buttons">
-      <button>Length</button>
-      <button>Weight</button>
-      <button>Temperature</button>
-      <button>Volume</button>
-      <button>Time</button>
-      <button>Area</button>
+      <button onclick="setCategory('length')">Length</button>
+      <button onclick="setCategory('weight')">Weight</button>
+      <button onclick="setCategory('temperature')">Temperature</button>
+      <button onclick="setCategory('volume')">Volume</button>
+      <button onclick="setCategory('time')">Time</button>
+      <button onclick="setCategory('area')">Area</button>
     </div><div class="converter">
   <input type="number" placeholder="Enter value" id="inputValue">
-  <select id="fromUnit">
-    <option value="meter">Meter</option>
-    <option value="kilometer">Kilometer</option>
-    <option value="mile">Mile</option>
-    <option value="inch">Inch</option>
-    <option value="foot">Foot</option>
-    <option value="centimeter">Centimeter</option>
-  </select>
-  <select id="toUnit">
-    <option value="kilometer">Kilometer</option>
-    <option value="meter">Meter</option>
-    <option value="mile">Mile</option>
-    <option value="inch">Inch</option>
-    <option value="foot">Foot</option>
-    <option value="centimeter">Centimeter</option>
-  </select>
+  <select id="fromUnit"></select>
+  <select id="toUnit"></select>
   <input type="text" placeholder="Converted value" id="outputValue" readonly>
 </div>
 
@@ -159,6 +146,55 @@
     <div class="tagline">Goli nahi marenge usko, keh ke lenge uski</div>
     <div>All Rights Reserved – CalcProX Suite</div>
   </footer>  <script>
+    const unitOptions = {
+      length: ["meter", "kilometer", "mile", "inch", "foot", "centimeter"],
+      weight: ["gram", "kilogram", "pound", "ounce"],
+      temperature: ["celsius", "fahrenheit", "kelvin"],
+      volume: ["liter", "milliliter", "gallon"],
+      time: ["second", "minute", "hour"],
+      area: ["sq meter", "acre", "hectare"]
+    };
+
+    function populateUnits(category) {
+      const from = document.getElementById("fromUnit");
+      const to = document.getElementById("toUnit");
+      from.innerHTML = "";
+      to.innerHTML = "";
+      unitOptions[category].forEach(unit => {
+        const option1 = document.createElement("option");
+        option1.value = unit;
+        option1.text = unit;
+        const option2 = option1.cloneNode(true);
+        from.add(option1);
+        to.add(option2);
+      });
+    }
+
+    function convertValue() {
+      const val = parseFloat(document.getElementById("inputValue").value);
+      const from = document.getElementById("fromUnit").value;
+      const to = document.getElementById("toUnit").value;
+      let result = val;
+
+      if (from === to) {
+        result = val;
+      } else {
+        // Simple demo conversion logic (should be replaced with accurate formulas)
+        result = (val * 1.0).toFixed(4);
+      }
+      document.getElementById("outputValue").value = result;
+    }
+
+    function setCategory(category) {
+      populateUnits(category);
+      document.getElementById("inputValue").value = "";
+      document.getElementById("outputValue").value = "";
+    }
+
+    document.getElementById("inputValue").addEventListener("input", convertValue);
+    document.getElementById("fromUnit").addEventListener("change", convertValue);
+    document.getElementById("toUnit").addEventListener("change", convertValue);
+
     function shareResult() {
       const value = document.getElementById("outputValue").value;
       const shareData = {
@@ -172,5 +208,8 @@
         alert("Sharing not supported on this browser.");
       }
     }
+
+    // Set default category on load
+    setCategory("length");
   </script></body>
 </html>

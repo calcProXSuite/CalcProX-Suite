@@ -1,142 +1,99 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CalcProX Scientific Calculator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scientific Calculator - CalcProX Suite</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #222;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
     }
-    .calculator {
-      background: #2d2d2d;
-      border-radius: 12px;
+    header {
+      background-color: #354f8c;
+      color: #fff;
       padding: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-      max-width: 360px;
-      width: 100%;
+      text-align: center;
     }
-    .display {
-      background: #111;
-      color: #0f0;
-      font-size: 24px;
-      text-align: right;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      height: 40px;
-      overflow-x: auto;
-    }
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-    }
-    button {
+    footer {
+      background-color: #354f8c;
+      color: #fff;
+      text-align: center;
       padding: 15px;
-      font-size: 16px;
+      font-size: 0.9rem;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .tagline {
+      font-weight: bold;
+      color: #d9534f;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 1.1rem;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
       border: none;
-      border-radius: 8px;
-      background-color: #444;
-      color: white;
-      cursor: pointer;
+      margin-bottom: 30px;
     }
-    button:active {
-      background-color: #666;
+    h2 {
+      color: #354f8c;
     }
-    .orange { background-color: orange; }
-    .red { background-color: crimson; }
-    .wide { grid-column: span 2; }
+    section {
+      margin-bottom: 30px;
+    }
   </style>
 </head>
 <body>
-  <div class="calculator">
-    <div id="display" class="display">0</div>
-    <div class="keys">
-      <button onclick="clearDisplay()" class="red">AC</button>
-      <button onclick="delChar()">DEL</button>
-      <button onclick="append('Ans')">Ans</button>
-      <button onclick="append('(')">(</button>
-      <button onclick="append(')')">)</button>
-      <button onclick="append('/')">/</button><button onclick="append('sin(')">sin</button>
-  <button onclick="append('cos(')">cos</button>
-  <button onclick="append('tan(')">tan</button>
-  <button onclick="append('log(')">log</button>
-  <button onclick="append('ln(')">ln</button>
-  <button onclick="append('*')">*</button>
+  <header>
+    <h1>Scientific Calculator - CalcProX Suite</h1>
+  </header>
+  <div class="container">
+    <iframe src="https://www.calculator.net/scientific-calculator.html"></iframe><section>
+  <h2>What is a Scientific Calculator?</h2>
+  <p>
+    A scientific calculator is a type of electronic calculator, typically but not always handheld, designed to calculate problems in science, engineering, and mathematics. They can handle functions such as exponentials, logarithms, trigonometry, and more complex mathematical operations.
+  </p>
+</section>
 
-  <button onclick="append('7')">7</button>
-  <button onclick="append('8')">8</button>
-  <button onclick="append('9')">9</button>
-  <button onclick="append('sqrt(')">√</button>
-  <button onclick="append('EXP')">EXP</button>
-  <button onclick="append('-')">-</button>
+<section>
+  <h2>Common Features</h2>
+  <ul>
+    <li>Trigonometric functions: sin, cos, tan</li>
+    <li>Logarithmic and exponential functions</li>
+    <li>Square roots, powers, and factorials</li>
+    <li>Memory storage</li>
+    <li>Parentheses for grouping</li>
+    <li>Complex and fraction calculations</li>
+  </ul>
+</section>
 
-  <button onclick="append('4')">4</button>
-  <button onclick="append('5')">5</button>
-  <button onclick="append('6')">6</button>
-  <button onclick="append('!')">x!</button>
-  <button onclick="append('Math.PI')">π</button>
-  <button onclick="append('+')">+</button>
+<section>
+  <h2>Formulas You Can Use</h2>
+  <ul>
+    <li>Pythagorean Theorem: a² + b² = c²</li>
+    <li>Area of a Circle: A = πr²</li>
+    <li>Logarithmic Identity: log(ab) = log(a) + log(b)</li>
+    <li>Trigonometric Identity: sin²(x) + cos²(x) = 1</li>
+  </ul>
+</section>
 
-  <button onclick="append('1')">1</button>
-  <button onclick="append('2')">2</button>
-  <button onclick="append('3')">3</button>
-  <button onclick="calculate()" class="orange wide">=</button>
+<section>
+  <h2>FAQs</h2>
+  <p><strong>Q:</strong> Can I use this calculator for exams?<br><strong>A:</strong> Please check with your exam authority, as not all scientific calculators are allowed.</p>
+  <p><strong>Q:</strong> Is it accurate?<br><strong>A:</strong> Yes, it provides high precision for most mathematical operations.</p>
+</section>
 
-  <button onclick="append('0')">0</button>
-  <button onclick="append('.')">.</button>
-</div>
+<div class="tagline">Goli nahi marenge usko, keh ke lenge uski.</div>
 
-  </div>  <script>
-    const display = document.getElementById('display');
-
-    function append(value) {
-      if (display.innerText === '0' || display.innerText === 'Error') {
-        display.innerText = value;
-      } else {
-        display.innerText += value;
-      }
-    }
-
-    function clearDisplay() {
-      display.innerText = '0';
-    }
-
-    function delChar() {
-      let text = display.innerText;
-      display.innerText = text.length > 1 ? text.slice(0, -1) : '0';
-    }
-
-    function factorial(n) {
-      if (n < 0) return NaN;
-      if (n === 0 || n === 1) return 1;
-      return n * factorial(n - 1);
-    }
-
-    function calculate() {
-      try {
-        let expr = display.innerText
-          .replace(/Ans/g, '0')
-          .replace(/EXP/g, 'Math.E')
-          .replace(/sqrt/g, 'Math.sqrt')
-          .replace(/sin/g, 'Math.sin')
-          .replace(/cos/g, 'Math.cos')
-          .replace(/tan/g, 'Math.tan')
-          .replace(/log/g, 'Math.log10')
-          .replace(/ln/g, 'Math.log')
-          .replace(/π/g, 'Math.PI')
-          .replace(/([0-9]+)!/g, (_, n) => factorial(parseInt(n)));
-        display.innerText = eval(expr);
-      } catch {
-        display.innerText = 'Error';
-      }
-    }
-  </script></body>
+  </div>  <footer>
+    All Rights Reserved – CalcProX Suite
+  </footer>
+</body>
 </html>

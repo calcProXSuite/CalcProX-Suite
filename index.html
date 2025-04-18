@@ -1,81 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CalcProX Suite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CalcProX Suite - India’s most powerful all-in-one calculator suite including GST, EMI, SIP, BMI, Age, Currency, Unit converters and more." />
+  <meta name="keywords" content="calculator, GST, EMI, SIP, BMI, Age, Currency, Unit Converter, CalcProX Suite" />
+  <meta name="author" content="CalcProX Suite" />
+  <meta property="og:title" content="CalcProX Suite - All-in-One Calculator Hub" />
+  <meta property="og:description" content="India’s most powerful all-in-one calculator suite including GST, EMI, SIP, Currency, and Unit Converters." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcproxsuite.github.io/CalcProX-Suite/" />
+  <meta property="og:image" content="https://calcproxsuite.github.io/CalcProX-Suite/assets/banner.png" />
+  <title>CalcProX Suite - All-in-One Calculator Hub</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      min-height: 100vh;
+      margin: 0;
+      background-color: #f2f2f2;
     }
-    .sidebar {
-      width: 250px;
-      background-color: #2c3e50;
+    header {
+      background-color: #2a2a72;
       color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      font-size: 1.2em;
+    }
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .sidebar h2 {
-      margin-bottom: 20px;
-    }
-    .sidebar a {
-      color: white;
-      text-decoration: none;
-      margin: 10px 0;
-      display: block;
-      padding: 8px;
-      border-radius: 5px;
-    }
-    .sidebar a:hover {
-      background-color: #34495e;
-    }
-    .tagline {
-      font-size: 14px;
-      margin-top: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
       text-align: center;
-      font-style: italic;
-      color: #ecf0f1;
     }
-    .content {
-      flex: 1;
-      padding: 30px;
-      background-color: #ecf0f1;
+    .card h3 {
+      margin-bottom: 10px;
     }
-    .welcome {
-      font-size: 24px;
+    .card p {
+      color: #555;
+      font-size: 0.95em;
+    }
+    footer {
       text-align: center;
-      margin-top: 100px;
+      padding: 20px;
+      background-color: #222;
+      color: #fff;
+    }
+    footer strong {
+      color: #ff6600;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <div>
-      <h2>CalcProX Suite</h2>
-      <a href="scientific.html" target="_blank">Scientific Calculator</a>
-      <a href="gst.html">GST Calculator</a>
-      <a href="emi.html">EMI Calculator</a>
-      <a href="sip.html">SIP Calculator</a>
-      <a href="age.html">Age Calculator</a>
-      <a href="bmi.html">BMI Calculator</a>
-      <a href="currency.html">Currency Converter</a>
-      <a href="percentage.html">Percentage Calculator</a>
-      <a href="unit.html">Unit Converter</a>
+  <header>
+    <h1>Welcome to CalcProX Suite</h1>
+    <p>India's Most Powerful All-in-One Calculator Hub</p>
+  </header>  <div class="container">
+    <div class="grid">
+      <div class="card">
+        <h3>GST Calculator</h3>
+        <p>Quickly calculate GST inclusive and exclusive amounts with ease.</p>
+      </div>
+      <div class="card">
+        <h3>EMI Calculator</h3>
+        <p>Plan your loans smartly with accurate EMI calculations.</p>
+      </div>
+      <div class="card">
+        <h3>SIP Calculator</h3>
+        <p>Estimate your mutual fund investments growth over time.</p>
+      </div>
+      <div class="card">
+        <h3>Age Calculator</h3>
+        <p>Calculate your age in years, months, days and more.</p>
+      </div>
+      <div class="card">
+        <h3>BMI Calculator</h3>
+        <p>Know your body mass index and health category instantly.</p>
+      </div>
+      <div class="card">
+        <h3>Currency Converter</h3>
+        <p>Convert any global currency with real-time exchange rates.</p>
+      </div>
+      <div class="card">
+        <h3>Unit Converter</h3>
+        <p>Convert units of length, weight, temperature, area, volume and more.</p>
+      </div>
+      <div class="card">
+        <h3>Scientific Calculator</h3>
+        <p>Use scientific functions in a 991MS-style powerful calculator.</p>
+      </div>
+      <div class="card">
+        <h3>Percentage Calculator</h3>
+        <p>Find percentage increase, decrease, values and comparisons.</p>
+      </div>
     </div>
-    <div class="tagline">"Goli nahi marenge usko, keh ke lenge uski"</div>
-  </div>
-
-  <div class="content">
-    <div class="welcome">Welcome to CalcProX Suite! Choose a calculator from the sidebar.</div>
-  </div>
+  </div>  <footer>
+    <p><strong>Goli nahi marenge usko, keh ke lenge uski</strong></p>
+    <p>All Rights Reserved – CalcProX Suite</p>
+  </footer>
 </body>
 </html>
